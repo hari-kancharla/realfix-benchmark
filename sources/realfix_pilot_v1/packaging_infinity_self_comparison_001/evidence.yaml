@@ -1,0 +1,52 @@
+case_id: packaging_infinity_self_comparison_001
+source_label: pypa/packaging
+repository_url: https://github.com/pypa/packaging
+object_format: sha1
+buggy_commit: 4339d3a0028348e21863664e6022e3cff20c3411
+fixed_commit: f8f16338e10d5d509ea2a29e0f0cf56baf4be565
+buggy_tree: c9c93e7d1c812bc7a99e35f2825ec360d2034b73
+fixed_tree: 047f8d789e3cfa3972a2d3107b320096e488a3d5
+fixed_date: '2026-03-08'
+issue_url: https://github.com/pypa/packaging/pull/1093
+pull_request_url: https://github.com/pypa/packaging/pull/1093
+changed_paths:
+- src/packaging/_structures.py
+- tests/test_structures.py
+source_selectors:
+- src/packaging
+tests_root: tests
+regression_test_path: tests/test_structures.py
+regression_test_function: test_infinity_self_comparison
+defect_evidence: 'PR #1093 ("Fix incorrect self-comparison for InfinityType and NegativeInfinityType")
+  reports that the version sentinels compared as unordered against themselves: Infinity <
+  Infinity was true and Infinity <= Infinity was false. The PR adds regression tests that
+  require a sentinel to compare equal-or-ordered to itself.'
+license:
+  spdx: Apache-2.0 OR BSD-2-Clause
+  files:
+  - path: LICENSE
+    blob: 6f62d44e4ef733c0e713afcd2371fed7f2b3de67
+    note: dual-license selection notice
+  - path: LICENSE.APACHE
+    blob: f433b1a53f5b830a205fd2df78e2b34974656c7b
+    note: Apache-2.0 text
+  - path: LICENSE.BSD
+    blob: 42ce7b75c92fb01a3f6ed17eea363f756b7da582
+    copyright: Copyright (c) Donald Stufft and individual contributors.
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose InfinityType comparison vocabulary
+  (the buggy methods always returned True/False without an identity guard; the new tests are
+  named for self-comparison). Ground truth paraphrases the defect ("sentinel identity", "same
+  sentinel") and is checked by strict contamination lint.
+mutation_prospect: High. Prior hermetic certification of this commit pair (Python 3.11, pytest,
+  mutation limit 20) measured 100% kill on 10 viable mutants. That run used a different image
+  tag than realfix-pilot-batch-01:1; Batch 2 admission is provisional until this pack's pinned
+  image re-certifies.
+build_batch_status: batch-02 provisional
