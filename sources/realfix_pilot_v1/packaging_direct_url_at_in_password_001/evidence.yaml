@@ -1,0 +1,51 @@
+case_id: packaging_direct_url_at_in_password_001
+source_label: pypa/packaging
+repository_url: https://github.com/pypa/packaging
+object_format: sha1
+buggy_commit: 28c299e8a823600dd66d4adeb7c7cc98e11089d2
+fixed_commit: 08bb047794f4e70b157dacef4538b3a6e3492743
+buggy_tree: 3a78da0dbd87e81a3900128a16856183417fea8b
+fixed_tree: ed1160c9c35345a0b119b3f18e7571e3972b9a14
+fixed_date: '2026-06-06'
+issue_url: https://github.com/pypa/packaging/pull/1218
+pull_request_url: https://github.com/pypa/packaging/pull/1218
+changed_paths:
+- src/packaging/direct_url.py
+- tests/test_direct_url.py
+source_selectors:
+- src/packaging
+tests_root: tests
+regression_test_path: tests/test_direct_url.py
+regression_test_function: test_to_dict_strip_url_with_at_in_password
+defect_evidence: 'PR #1218 ("DirectUrl auth stripping with @ in passwords") reports that userinfo
+  stripping split on the first ''@'', so a password containing that character leaked into
+  DirectUrl.to_dict. The added test uses a password that contains ''@'' and checks the published
+  URL.'
+license:
+  spdx: Apache-2.0 OR BSD-2-Clause
+  files:
+  - path: LICENSE
+    blob: 6f62d44e4ef733c0e713afcd2371fed7f2b3de67
+    note: dual-license selection notice
+  - path: LICENSE.APACHE
+    blob: f433b1a53f5b830a205fd2df78e2b34974656c7b
+    note: Apache-2.0 text
+  - path: LICENSE.BSD
+    blob: 42ce7b75c92fb01a3f6ed17eea363f756b7da582
+    copyright: Copyright (c) Donald Stufft and individual contributors.
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose auth-stripping vocabulary (function
+  name _strip_auth_from_netloc; the new test name contains strip/url/password). Ground truth
+  paraphrases the defect ("first at-sign", "userinfo stripping") and is checked by strict
+  contamination lint.
+mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 60%
+  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
+  2 admission is provisional.
+build_batch_status: batch-02 provisional
