@@ -56,5 +56,20 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/_structures.py`.
 
+## packaging_normalized_name_double_hyphen_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `283811bffee5da95bda6d5332cb88f8b231187a2`
+- Fixed commit: `ba17fcea2367a70cba21d6bfb0931ae476ee8583`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/utils.py`.
+
 The original per-file copyright and SPDX notices present in the upstream
 files are retained as-is in the vendored `before/`, `after/`, and `tests/` trees.
