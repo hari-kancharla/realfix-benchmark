@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Deterministically rebuild the RealFix Pilot v1 Batch 1 pack.
+"""Deterministically rebuild the RealFix Pilot v1 pack.
 
 This script orchestrates the *pinned* Code Review Arena harness; it does not
 reimplement importer or checksum internals. For each case it clones the upstream
 repository into a temporary directory, verifies the pinned object identities and
 ancestry, calls `arena import-fix` (the merged production command), and assembles
-the three case directories into one pack together with the vendored upstream
+the listed case directories into one pack together with the vendored upstream
 license texts and a third-party notice document. It then writes and the caller can
 verify `pack.sha256`. All temporary directories are removed on success and failure.
 
@@ -27,7 +27,7 @@ from arena.benchmark.pack_hash import write_checksum
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCES = REPO_ROOT / "sources" / "realfix_pilot_v1"
 PACK = REPO_ROOT / "packs" / "realfix_pilot_v1"
-PACK_NAME = "RealFix Pilot v1 Batch 1"
+PACK_NAME = "RealFix Pilot v1"
 PACK_VERSION = "realfix_pilot_v1"
 DOCKER_IMAGE = "realfix-pilot-batch-01:1"
 
@@ -53,6 +53,22 @@ CASES = [
         "fixed": "349abfad0688f42eb835ed8a10380d6cbf6940e7",
         "source_tree": "src/packaging",
         "changed_source": "src/packaging/dependency_groups.py",
+        "project": "packaging",
+        "spdx": "Apache-2.0 OR BSD-2-Clause",
+        "licenses": [
+            ("LICENSE", "packaging-LICENSE.txt"),
+            ("LICENSE.APACHE", "packaging-Apache-2.0.txt"),
+            ("LICENSE.BSD", "packaging-BSD-2-Clause.txt"),
+        ],
+    },
+    {
+        "id": "packaging_infinity_self_comparison_001",
+        "repo_url": "https://github.com/pypa/packaging",
+        "source_label": "pypa/packaging",
+        "buggy": "4339d3a0028348e21863664e6022e3cff20c3411",
+        "fixed": "f8f16338e10d5d509ea2a29e0f0cf56baf4be565",
+        "source_tree": "src/packaging",
+        "changed_source": "src/packaging/_structures.py",
         "project": "packaging",
         "spdx": "Apache-2.0 OR BSD-2-Clause",
         "licenses": [
@@ -98,7 +114,7 @@ def _verify(clone: Path, case: dict) -> None:
 
 
 _NOTICE_HEADER = """\
-# Third-party notices - RealFix Pilot v1 Batch 1
+# Third-party notices - RealFix Pilot v1
 
 This benchmark pack vendors source and test files from third-party open-source
 projects so that each case is a complete, runnable reverse-review snapshot. The

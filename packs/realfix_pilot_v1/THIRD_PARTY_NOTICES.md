@@ -1,4 +1,4 @@
-# Third-party notices - RealFix Pilot v1 Batch 1
+# Third-party notices - RealFix Pilot v1
 
 This benchmark pack vendors source and test files from third-party open-source
 projects so that each case is a complete, runnable reverse-review snapshot. The
@@ -40,6 +40,21 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
 - Included content: the `src/packaging` source tree (buggy and fixed)
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/dependency_groups.py`.
+
+## packaging_infinity_self_comparison_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `4339d3a0028348e21863664e6022e3cff20c3411`
+- Fixed commit: `f8f16338e10d5d509ea2a29e0f0cf56baf4be565`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/_structures.py`.
 
 The original per-file copyright and SPDX notices present in the upstream
 files are retained as-is in the vendored `before/`, `after/`, and `tests/` trees.

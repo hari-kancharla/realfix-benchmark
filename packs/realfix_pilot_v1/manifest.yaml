@@ -1,6 +1,7 @@
 cases:
 - more_itertools_windowed_zero_size_001
 - packaging_dependency_group_error_cache_001
+- packaging_infinity_self_comparison_001
 default_docker_image: realfix-pilot-batch-01:1
-name: RealFix Pilot v1 Batch 1
+name: RealFix Pilot v1
 version: realfix_pilot_v1
