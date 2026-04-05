@@ -41,6 +41,21 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/dependency_groups.py`.
 
+## packaging_direct_url_at_in_password_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `28c299e8a823600dd66d4adeb7c7cc98e11089d2`
+- Fixed commit: `08bb047794f4e70b157dacef4538b3a6e3492743`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/direct_url.py`.
+
 ## packaging_infinity_self_comparison_001
 
 - Project: packaging
