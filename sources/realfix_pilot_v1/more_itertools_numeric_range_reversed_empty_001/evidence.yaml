@@ -1,0 +1,44 @@
+case_id: more_itertools_numeric_range_reversed_empty_001
+source_label: more-itertools/more-itertools
+repository_url: https://github.com/more-itertools/more-itertools
+object_format: sha1
+buggy_commit: 247e15b3a489d5805375c95dfa79486c9bd0eb1b
+fixed_commit: edb3346f835ca917efbfda5e2d6664ab952da369
+buggy_tree: 392f25c876c1508ba07c0d4617ec30ea397b6c76
+fixed_tree: a63466f36f56812a62b8e9262b5c4aa949baead9
+fixed_date: '2026-04-10'
+issue_url: null
+pull_request_url: https://github.com/more-itertools/more-itertools/commit/edb3346f835ca917efbfda5e2d6664ab952da369
+changed_paths:
+- more_itertools/more.py
+- tests/test_more.py
+source_selectors:
+- more_itertools
+tests_root: tests
+regression_test_path: tests/test_more.py
+regression_test_function: test_empty_reversed
+defect_evidence: Commit edb3346 ("Fix empty ranges in numeric_range.__reversed__") adds test_empty_reversed,
+  which requires reversed(numeric_range(0)) to yield no values instead of raising. No separate
+  issue was filed; the commit and its regression test establish the defect.
+license:
+  spdx: MIT
+  files:
+  - path: LICENSE
+    blob: 0a523bece3e50519653c4d7a38399baa487fefa1
+    copyright: Copyright (c) 2012 Erik Rose
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose reversed-empty vocabulary (__reversed__
+  indexing the last element; the new test is named test_empty_reversed). Ground truth paraphrases
+  the defect ("vacuous span", "empty numeric span") and is checked by strict contamination
+  lint.
+mutation_prospect: High. Prior hermetic certification of this commit pair measured 100% kill
+  on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch 2 admission
+  is provisional. The case runs the full tests/test_more.py module, which is slow.
+build_batch_status: batch-02 provisional
