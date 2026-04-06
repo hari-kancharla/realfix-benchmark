@@ -1,4 +1,5 @@
 cases:
+- more_itertools_last_reversed_none_001
 - more_itertools_numeric_range_reversed_empty_001
 - more_itertools_split_before_empty_001
 - more_itertools_windowed_zero_size_001
