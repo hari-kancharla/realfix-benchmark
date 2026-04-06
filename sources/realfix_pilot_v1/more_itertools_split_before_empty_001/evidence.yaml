@@ -1,0 +1,43 @@
+case_id: more_itertools_split_before_empty_001
+source_label: more-itertools/more-itertools
+repository_url: https://github.com/more-itertools/more-itertools
+object_format: sha1
+buggy_commit: c7e73ffbf9c7e15969f9ed301d0431770061ab90
+fixed_commit: 2e81a562fbaccc996c19c069090a53f52ec894fe
+buggy_tree: 21ccfb41cb0635fcde8f6159bf55912e5b04b636
+fixed_tree: c40d9dfaf9dca4876cbdc3bd9bd9edd470f9f41b
+fixed_date: '2021-03-10'
+issue_url: null
+pull_request_url: https://github.com/more-itertools/more-itertools/commit/2e81a562fbaccc996c19c069090a53f52ec894fe
+changed_paths:
+- more_itertools/more.py
+- tests/test_more.py
+source_selectors:
+- more_itertools
+tests_root: tests
+regression_test_path: tests/test_more.py
+regression_test_function: test_empty_collection
+defect_evidence: Commit 2e81a56 ("Fix split_before for an empty collections.") adds test_empty_collection,
+  which requires split_before on an empty input to yield no chunks. No separate issue was
+  filed; the commit and its regression test establish the defect.
+license:
+  spdx: MIT
+  files:
+  - path: LICENSE
+    blob: 0a523bece3e50519653c4d7a38399baa487fefa1
+    copyright: Copyright (c) 2012 Erik Rose
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose empty-input vocabulary (the leftover
+  yield after the loop; the new test is named test_empty_collection). Ground truth paraphrases
+  the defect ("empty chunk", "leftover buffer") and is checked by strict contamination lint.
+mutation_prospect: High. Prior hermetic certification of this commit pair measured 95% kill
+  on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch 2 admission
+  is provisional.
+build_batch_status: batch-02 provisional
