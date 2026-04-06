@@ -1,0 +1,44 @@
+case_id: more_itertools_last_reversed_none_001
+source_label: more-itertools/more-itertools
+repository_url: https://github.com/more-itertools/more-itertools
+object_format: sha1
+buggy_commit: c834d6e4a0c4280b7b7750cb0de8dd8acb3d4c2c
+fixed_commit: cca32949f12d473fd823e37a5530c30d2faa1332
+buggy_tree: aa3aecf4fb607aa7470a2e877094e658968cf07b
+fixed_tree: b38f09200ea77fa79ca049b745d9d495ff7627a7
+fixed_date: '2025-07-13'
+issue_url: https://github.com/more-itertools/more-itertools/issues/1001
+pull_request_url: https://github.com/more-itertools/more-itertools/commit/cca32949f12d473fd823e37a5530c30d2faa1332
+changed_paths:
+- more_itertools/more.py
+- tests/test_more.py
+source_selectors:
+- more_itertools
+tests_root: tests
+regression_test_path: tests/test_more.py
+regression_test_function: test_reversed_is_none
+defect_evidence: 'Issue #1001 and commit cca3294 ("fix last() when __reversed__ is None")
+  report that last() crashed on objects that set __reversed__ = None, the pathlib.Path pattern.
+  The added test_reversed_is_none covers that object.'
+license:
+  spdx: MIT
+  files:
+  - path: LICENSE
+    blob: 0a523bece3e50519653c4d7a38399baa487fefa1
+    copyright: Copyright (c) 2012 Erik Rose
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose reversed-is-None vocabulary (hasattr
+  on __reversed__; the new test is named test_reversed_is_none). Ground truth paraphrases
+  the defect ("disabled reverse", "presence versus truth") and is checked by strict contamination
+  lint.
+mutation_prospect: High. Prior hermetic certification of this commit pair measured 100% kill
+  on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch 2 admission
+  is provisional.
+build_batch_status: batch-02 provisional
