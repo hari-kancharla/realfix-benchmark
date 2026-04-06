@@ -26,6 +26,19 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `more_itertools/more.py`.
 
+## more_itertools_split_before_empty_001
+
+- Project: more-itertools
+- Source repository: https://github.com/more-itertools/more-itertools
+- License: MIT
+- License files:
+  - `licenses/more_itertools-MIT.txt` (`LICENSE`)
+- Buggy commit: `c7e73ffbf9c7e15969f9ed301d0431770061ab90`
+- Fixed commit: `2e81a562fbaccc996c19c069090a53f52ec894fe`
+- Included content: the `more_itertools` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `more_itertools/more.py`.
+
 ## more_itertools_windowed_zero_size_001
 
 - Project: more-itertools

@@ -169,6 +169,18 @@ CASES = [
         "spdx": "MIT",
         "licenses": [("LICENSE", "more_itertools-MIT.txt")],
     },
+    {
+        "id": "more_itertools_split_before_empty_001",
+        "repo_url": "https://github.com/more-itertools/more-itertools",
+        "source_label": "more-itertools/more-itertools",
+        "buggy": "c7e73ffbf9c7e15969f9ed301d0431770061ab90",
+        "fixed": "2e81a562fbaccc996c19c069090a53f52ec894fe",
+        "source_tree": "more_itertools",
+        "changed_source": "more_itertools/more.py",
+        "project": "more-itertools",
+        "spdx": "MIT",
+        "licenses": [("LICENSE", "more_itertools-MIT.txt")],
+    },
     # tomlkit_malformed_array_element_001 is intentionally excluded from Batch 1:
     # at the fixed commit the tests/ tree contains a git submodule (tests/toml-test,
     # gitlink mode 160000) that the importer correctly refuses to materialize, and the

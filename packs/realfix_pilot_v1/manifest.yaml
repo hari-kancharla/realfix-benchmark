@@ -1,5 +1,6 @@
 cases:
 - more_itertools_numeric_range_reversed_empty_001
+- more_itertools_split_before_empty_001
 - more_itertools_windowed_zero_size_001
 - packaging_dependency_group_error_cache_001
 - packaging_direct_url_at_in_password_001
