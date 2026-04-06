@@ -86,6 +86,21 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/_structures.py`.
 
+## packaging_license_empty_parens_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `f89652be562e2acd45d4def18977fd9057937c38`
+- Fixed commit: `2680259b4fa88885962e1b6f1cca9d92a3e605ca`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/licenses/__init__.py`.
+
 ## packaging_nested_extra_normalization_001
 
 - Project: packaging

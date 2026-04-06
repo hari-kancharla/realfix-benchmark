@@ -141,6 +141,22 @@ CASES = [
             ("LICENSE.BSD", "packaging-BSD-2-Clause.txt"),
         ],
     },
+    {
+        "id": "packaging_license_empty_parens_001",
+        "repo_url": "https://github.com/pypa/packaging",
+        "source_label": "pypa/packaging",
+        "buggy": "f89652be562e2acd45d4def18977fd9057937c38",
+        "fixed": "2680259b4fa88885962e1b6f1cca9d92a3e605ca",
+        "source_tree": "src/packaging",
+        "changed_source": "src/packaging/licenses/__init__.py",
+        "project": "packaging",
+        "spdx": "Apache-2.0 OR BSD-2-Clause",
+        "licenses": [
+            ("LICENSE", "packaging-LICENSE.txt"),
+            ("LICENSE.APACHE", "packaging-Apache-2.0.txt"),
+            ("LICENSE.BSD", "packaging-BSD-2-Clause.txt"),
+        ],
+    },
     # tomlkit_malformed_array_element_001 is intentionally excluded from Batch 1:
     # at the fixed commit the tests/ tree contains a git submodule (tests/toml-test,
     # gitlink mode 160000) that the importer correctly refuses to materialize, and the

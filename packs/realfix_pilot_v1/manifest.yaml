@@ -4,6 +4,7 @@ cases:
 - packaging_direct_url_at_in_password_001
 - packaging_empty_project_name_001
 - packaging_infinity_self_comparison_001
+- packaging_license_empty_parens_001
 - packaging_nested_extra_normalization_001
 - packaging_normalized_name_double_hyphen_001
 default_docker_image: realfix-pilot-batch-01:1
