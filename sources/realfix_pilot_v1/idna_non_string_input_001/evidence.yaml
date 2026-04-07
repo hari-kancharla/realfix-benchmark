@@ -1,0 +1,42 @@
+case_id: idna_non_string_input_001
+source_label: kjd/idna
+repository_url: https://github.com/kjd/idna
+object_format: sha1
+buggy_commit: 7e6df7196e6396b5b84b9530eab8272b5ad51898
+fixed_commit: 0f4a28d88f8cce54269f0b6a42edf5e6a5424319
+buggy_tree: a7797a6066b0240521f095f4cbf827266c4a3008
+fixed_tree: 50ae3236b7a50151c90b8145b098acd973450c5b
+fixed_date: '2026-05-06'
+issue_url: https://github.com/kjd/idna/pull/224
+pull_request_url: https://github.com/kjd/idna/pull/224
+changed_paths:
+- idna/core.py
+- tests/test_idna.py
+source_selectors:
+- idna
+tests_root: tests
+regression_test_path: tests/test_idna.py
+regression_test_function: test_encode_decode_invalid_input_type
+defect_evidence: 'PR #224 ("Raise IDNAError on non-string input to encode/decode") reports
+  that int/None leaked TypeError from str(..., ''ascii''). The PR adds test_encode_decode_invalid_input_type.'
+license:
+  spdx: BSD-3-Clause
+  files:
+  - path: LICENSE.md
+    blob: f706835ab3a5dd709a6e1f57aee0a94ae1415df6
+    copyright: Copyright (c) 2013-2026, Kim Davies and contributors.
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose invalid-input-type vocabulary (the
+  new test name contains encode/decode/invalid/input/type). Ground truth paraphrases the defect
+  ("raw TypeError", "coercion failure") and is checked by strict contamination lint.
+mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 75%
+  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
+  2 admission is provisional.
+build_batch_status: batch-02 provisional
