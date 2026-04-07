@@ -13,6 +13,19 @@ and at the **fixed** commit (as `before/`), and the selected test tree at the fi
 commit (as `tests/`). The exact selectors and changed paths for each case are
 recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
 
+## idna_invalid_alabel_001
+
+- Project: idna
+- Source repository: https://github.com/kjd/idna
+- License: BSD-3-Clause
+- License files:
+  - `licenses/idna-BSD-3-Clause-2013-2021.txt` (`LICENSE.md`)
+- Buggy commit: `c3383c97b3fffd8aa73aaefd16baf9c6da1e9f4e`
+- Fixed commit: `4fdcc18d1eb214b35e16c372e8682fb8b8a52e11`
+- Included content: the `idna` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `idna/core.py`.
+
 ## more_itertools_chunked_even_001
 
 - Project: more-itertools
