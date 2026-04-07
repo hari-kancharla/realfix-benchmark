@@ -1,0 +1,43 @@
+case_id: idna_non_ascii_bytes_encode_001
+source_label: kjd/idna
+repository_url: https://github.com/kjd/idna
+object_format: sha1
+buggy_commit: 522c0ebe02d8bd09039dd593e7c152ab5a1d26dd
+fixed_commit: e00ed2854c5203be201940f4029a747684594409
+buggy_tree: 30a882a7cd6aa63fb19e6c4661f89c5794bfdc71
+fixed_tree: b2220c6951105614605aa4c3811a01b4e10fba98
+fixed_date: '2022-04-27'
+issue_url: https://github.com/kjd/idna/issues/119
+pull_request_url: https://github.com/kjd/idna/commit/e00ed2854c5203be201940f4029a747684594409
+changed_paths:
+- idna/core.py
+- tests/test_idna.py
+source_selectors:
+- idna
+tests_root: tests
+regression_test_path: tests/test_idna.py
+regression_test_function: test_encode
+defect_evidence: 'Issue #119 and commit e00ed28 ("Raise IDNAError on non-ASCII A-label") report
+  that encode leaked UnicodeDecodeError for a non-ASCII byte string. test_encode is extended
+  with that input and expects IDNAError.'
+license:
+  spdx: BSD-3-Clause
+  files:
+  - path: LICENSE.md
+    blob: b6f87326ffb36158c33f5e6dc9d6175262050cea
+    copyright: Copyright (c) 2013-2021, Kim Davies
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose encode/decode vocabulary (bytes.decode('ascii')
+  in encode; the covering method is test_encode). Ground truth paraphrases the defect ("raw
+  codec error", "bytes argument") and is checked by strict contamination lint.
+mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 75%
+  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
+  2 admission is provisional.
+build_batch_status: batch-02 provisional
