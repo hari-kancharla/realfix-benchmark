@@ -1,0 +1,43 @@
+case_id: idna_invalid_alabel_001
+source_label: kjd/idna
+repository_url: https://github.com/kjd/idna
+object_format: sha1
+buggy_commit: c3383c97b3fffd8aa73aaefd16baf9c6da1e9f4e
+fixed_commit: 4fdcc18d1eb214b35e16c372e8682fb8b8a52e11
+buggy_tree: e4cda51b27ab13bf95f8f20aca0c6bc99381c234
+fixed_tree: df3eb178220ade293ff0e68933b61f9438296e69
+fixed_date: '2021-10-03'
+issue_url: https://github.com/kjd/idna/issues/109
+pull_request_url: https://github.com/kjd/idna/commit/4fdcc18d1eb214b35e16c372e8682fb8b8a52e11
+changed_paths:
+- idna/core.py
+- tests/test_idna.py
+source_selectors:
+- idna
+tests_root: tests
+regression_test_path: tests/test_idna.py
+regression_test_function: test_decode
+defect_evidence: 'Issue #109 and commit 4fdcc18 ("Raise IDNAError exception on invalid A-label")
+  report that a malformed punycode A-label leaked UnicodeError. test_decode is extended with
+  that A-label and expects IDNAError.'
+license:
+  spdx: BSD-3-Clause
+  files:
+  - path: LICENSE.md
+    blob: b6f87326ffb36158c33f5e6dc9d6175262050cea
+    copyright: Copyright (c) 2013-2021, Kim Davies
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose A-label decode vocabulary (punycode
+  decode in ulabel; the covering method is test_decode). Ground truth paraphrases the defect
+  ("malformed label", "punycode decode") and is checked by strict contamination lint.
+mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 75%
+  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
+  2 admission is provisional.
+build_batch_status: batch-02 provisional
