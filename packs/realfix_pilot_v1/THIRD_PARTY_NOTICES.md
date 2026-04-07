@@ -13,6 +13,19 @@ and at the **fixed** commit (as `before/`), and the selected test tree at the fi
 commit (as `tests/`). The exact selectors and changed paths for each case are
 recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
 
+## more_itertools_chunked_even_001
+
+- Project: more-itertools
+- Source repository: https://github.com/more-itertools/more-itertools
+- License: MIT
+- License files:
+  - `licenses/more_itertools-MIT.txt` (`LICENSE`)
+- Buggy commit: `c0780fbbba9655d36de09b872981ffd4a90eb120`
+- Fixed commit: `49a4b3c94b0d71cc4576df3df9ca90197b5ec9fc`
+- Included content: the `more_itertools` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `more_itertools/more.py`.
+
 ## more_itertools_last_reversed_none_001
 
 - Project: more-itertools
