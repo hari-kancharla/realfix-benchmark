@@ -26,6 +26,19 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `idna/core.py`.
 
+## idna_non_ascii_bytes_encode_001
+
+- Project: idna
+- Source repository: https://github.com/kjd/idna
+- License: BSD-3-Clause
+- License files:
+  - `licenses/idna-BSD-3-Clause-2013-2021.txt` (`LICENSE.md`)
+- Buggy commit: `522c0ebe02d8bd09039dd593e7c152ab5a1d26dd`
+- Fixed commit: `e00ed2854c5203be201940f4029a747684594409`
+- Included content: the `idna` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `idna/core.py`.
+
 ## more_itertools_chunked_even_001
 
 - Project: more-itertools

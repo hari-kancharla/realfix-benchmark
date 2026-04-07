@@ -1,5 +1,6 @@
 cases:
 - idna_invalid_alabel_001
+- idna_non_ascii_bytes_encode_001
 - more_itertools_chunked_even_001
 - more_itertools_last_reversed_none_001
 - more_itertools_numeric_range_reversed_empty_001

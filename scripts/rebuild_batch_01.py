@@ -229,6 +229,18 @@ CASES = [
         "spdx": "BSD-3-Clause",
         "licenses": [("LICENSE.md", "idna-BSD-3-Clause-2013-2021.txt")],
     },
+    {
+        "id": "idna_non_ascii_bytes_encode_001",
+        "repo_url": "https://github.com/kjd/idna",
+        "source_label": "kjd/idna",
+        "buggy": "522c0ebe02d8bd09039dd593e7c152ab5a1d26dd",
+        "fixed": "e00ed2854c5203be201940f4029a747684594409",
+        "source_tree": "idna",
+        "changed_source": "idna/core.py",
+        "project": "idna",
+        "spdx": "BSD-3-Clause",
+        "licenses": [("LICENSE.md", "idna-BSD-3-Clause-2013-2021.txt")],
+    },
     # tomlkit_malformed_array_element_001 is intentionally excluded from Batch 1:
     # at the fixed commit the tests/ tree contains a git submodule (tests/toml-test,
     # gitlink mode 160000) that the importer correctly refuses to materialize, and the
