@@ -114,6 +114,7 @@ docker/realfix_pilot/{Dockerfile, requirements.txt, build.sh}         # hermetic
 scripts/rebuild_pack.py                                               # deterministic rebuilder
 docs/batch-01-report.md                                               # Batch 1 results
 docs/batch-02-report.md                                               # Batch 2 (provisional)
+docs/batch-03-report.md                                               # Batch 3 (consolidated)
 requirements-harness.txt                                             # pinned Code Review Arena
 ```
 
