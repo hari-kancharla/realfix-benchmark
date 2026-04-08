@@ -1,4 +1,4 @@
-name: RealFix Pilot Batch 1 CI
+name: RealFix Pilot v1 CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   batch-01:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 360
     env:
       HARNESS_COMMIT: 3e77aa1a13fde271cce02b4b716dd74add1e547c
     steps:
