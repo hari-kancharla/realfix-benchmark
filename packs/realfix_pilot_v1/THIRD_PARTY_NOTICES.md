@@ -274,5 +274,18 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/utils.py`.
 
+## tomli_text_mode_load_001
+
+- Project: tomli
+- Source repository: https://github.com/hukkin/tomli
+- License: MIT
+- License files:
+  - `licenses/tomli-MIT.txt` (`LICENSE`)
+- Buggy commit: `e4da05c35a41a4d53fce7af292b94506b1ea68a7`
+- Fixed commit: `8b962e13490a569d4aab90076451def23ed6c6d8`
+- Included content: the `src/tomli` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/tomli/_parser.py`.
+
 The original per-file copyright and SPDX notices present in the upstream
 files are retained as-is in the vendored `before/`, `after/`, and `tests/` trees.

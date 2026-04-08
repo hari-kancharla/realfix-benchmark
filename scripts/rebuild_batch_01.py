@@ -289,6 +289,18 @@ CASES = [
         "spdx": "MIT",
         "licenses": [("LICENSE", "installer-MIT.txt")],
     },
+    {
+        "id": "tomli_text_mode_load_001",
+        "repo_url": "https://github.com/hukkin/tomli",
+        "source_label": "hukkin/tomli",
+        "buggy": "e4da05c35a41a4d53fce7af292b94506b1ea68a7",
+        "fixed": "8b962e13490a569d4aab90076451def23ed6c6d8",
+        "source_tree": "src/tomli",
+        "changed_source": "src/tomli/_parser.py",
+        "project": "tomli",
+        "spdx": "MIT",
+        "licenses": [("LICENSE", "tomli-MIT.txt")],
+    },
     # tomlkit_malformed_array_element_001 is intentionally excluded from Batch 1:
     # at the fixed commit the tests/ tree contains a git submodule (tests/toml-test,
     # gitlink mode 160000) that the importer correctly refuses to materialize, and the
