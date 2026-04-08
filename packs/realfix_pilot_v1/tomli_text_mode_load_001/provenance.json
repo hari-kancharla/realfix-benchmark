@@ -1,5 +1,6 @@
 {
   "buggy_commit": "e4da05c35a41a4d53fce7af292b94506b1ea68a7",
+  "buggy_commit_committer_date": "2022-01-29T22:14:37+00:00",
   "buggy_source_files": [
     "src/tomli/__init__.py",
     "src/tomli/_parser.py",
@@ -15,6 +16,8 @@
   ],
   "diff_policy_version": "1",
   "fixed_commit": "8b962e13490a569d4aab90076451def23ed6c6d8",
+  "fixed_commit_author_date": "2022-01-30T07:33:01+00:00",
+  "fixed_commit_committer_date": "2022-01-30T07:33:01+00:00",
   "fixed_source_files": [
     "src/tomli/__init__.py",
     "src/tomli/_parser.py",
@@ -843,7 +846,7 @@
   "mode": "reverse_fix",
   "object_format": "sha1",
   "pr_diff_sha256": "337c7bb9e69910ed422349897030d1f09205ff8aeefa1e9f78c038446d5305d0",
-  "provenance_schema_version": "2",
+  "provenance_schema_version": "3",
   "reference_patch_sha256": "62af0716f7aefed6d715880c10f5f70187dc524092387639738911100116629d",
   "source_label": "hukkin/tomli",
   "source_paths": [

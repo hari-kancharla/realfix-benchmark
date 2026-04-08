@@ -1,5 +1,6 @@
 {
   "buggy_commit": "522c0ebe02d8bd09039dd593e7c152ab5a1d26dd",
+  "buggy_commit_committer_date": "2021-10-12T23:30:02+00:00",
   "buggy_source_files": [
     "idna/__init__.py",
     "idna/codec.py",
@@ -19,6 +20,8 @@
   ],
   "diff_policy_version": "1",
   "fixed_commit": "e00ed2854c5203be201940f4029a747684594409",
+  "fixed_commit_author_date": "2022-04-27T14:15:17+00:00",
+  "fixed_commit_committer_date": "2022-04-27T14:15:17+00:00",
   "fixed_source_files": [
     "idna/__init__.py",
     "idna/codec.py",
@@ -44,7 +47,7 @@
   "mode": "reverse_fix",
   "object_format": "sha1",
   "pr_diff_sha256": "fdfbbe407b31fd8e9896092d1df344a0941ae65c92693f0bbbf60f8908639b16",
-  "provenance_schema_version": "2",
+  "provenance_schema_version": "3",
   "reference_patch_sha256": "677908677b20a9153fd12ce4cb394b94a7bd73d964cddf1ff587f9ab7dc36031",
   "source_label": "kjd/idna",
   "source_paths": [

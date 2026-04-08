@@ -27,9 +27,9 @@ and adds the pinned `hypothesis` runtime that some upstream test modules import 
 collection time. Because the image changed, CI re-certifies **all 25** cases rather
 than carrying prior certification forward.
 
-Batch 3 cases additionally carry an `origin` block recording each fix's public date and
-its basis, which supports the harness's training-data exposure split. Batches 1 and 2
-do not yet carry that block.
+Every case carries an `origin` block recording its fix's public date and the basis for
+that date, which supports the harness's training-data exposure split. The dates are read
+from the upstream commit objects by the importer, never entered by hand.
 
 - Cases are **synthetic reverse-review cases derived from real fixes**: `after/` is
   the source *before* the historical repair, `before/` is the source *after* it, and

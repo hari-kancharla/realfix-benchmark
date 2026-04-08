@@ -1,5 +1,6 @@
 {
   "buggy_commit": "283811bffee5da95bda6d5332cb88f8b231187a2",
+  "buggy_commit_committer_date": "2026-06-08T15:10:05+00:00",
   "buggy_source_files": [
     "src/packaging/__init__.py",
     "src/packaging/_elffile.py",
@@ -32,6 +33,8 @@
   ],
   "diff_policy_version": "1",
   "fixed_commit": "ba17fcea2367a70cba21d6bfb0931ae476ee8583",
+  "fixed_commit_author_date": "2026-06-08T15:26:03+00:00",
+  "fixed_commit_committer_date": "2026-06-08T15:26:03+00:00",
   "fixed_source_files": [
     "src/packaging/__init__.py",
     "src/packaging/_elffile.py",
@@ -109,7 +112,7 @@
   "mode": "reverse_fix",
   "object_format": "sha1",
   "pr_diff_sha256": "dde354372aafa8a99b8a890c50eb9d32e1654eb6eb23b42abbd9ab1328a38d25",
-  "provenance_schema_version": "2",
+  "provenance_schema_version": "3",
   "reference_patch_sha256": "2580a0060660d6ccac31757f94af047cd7fd454f7ca50f6e65e0c4b20b21a6ca",
   "source_label": "pypa/packaging",
   "source_paths": [
