@@ -38,7 +38,9 @@ The first stage is a methodology pilot of roughly twelve cases. Its purpose is t
 exercise the full pipeline end to end and to check whether the questions above are
 measurable at all, not to produce paper-scale evidence. Twelve cases are too few to
 support claims about model performance, and the pilot will not be presented as if
-they did.
+they did. Batch 2 grew the pack to 20 cases, which meets the count target and still
+does not confer ranking power: more cases of the same hermetic, zero-dependency
+kind do not by themselves make detection-versus-repair gaps resolvable.
 
 Scaling beyond the pilot is a deliberate decision, not an automatic next step. The
 following signals, observed in the pilot, would justify scaling; their absence would

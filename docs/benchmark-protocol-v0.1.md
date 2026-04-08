@@ -4,6 +4,9 @@ This document defines how a RealFix case is discovered, validated, and admitted,
 and what each lifecycle status means. It is a governance and methodology document,
 not a description of results. It describes the process the Batch 1 cases already
 went through and fixes that process so later batches are built the same way.
+Batch 2 used that process: same importer, same image tag, same contamination
+lint, no new pipeline. Batch 2 snapshots are provisional until pinned-image
+re-certification and independent human checklist review.
 
 ## What a RealFix case is
 
