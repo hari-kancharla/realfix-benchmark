@@ -1,0 +1,43 @@
+case_id: installer_unbound_executable_001
+source_label: pypa/installer
+repository_url: https://github.com/pypa/installer
+object_format: sha1
+buggy_commit: de073ce0d45b9249e2b008df5ac391245e89a283
+fixed_commit: 6c3118d04e9a279f8f5b972ba797387451c7a6b4
+buggy_tree: 98b6bf300920388224c5ef9bafc93c7a24ecfe62
+fixed_tree: 07451c79025681c73992269db366baad35a2c4cc
+fixed_date: '2022-07-16'
+issue_url: https://github.com/pypa/installer/pull/115
+pull_request_url: https://github.com/pypa/installer/pull/115
+changed_paths:
+- src/installer/_core.py
+- tests/test_core.py
+source_selectors:
+- src/installer
+tests_root: tests
+regression_test_path: tests/test_core.py
+regression_test_function: test_ensure_non_executable_for_additional_metadata
+defect_evidence: 'PR #115 ("Fix the unbound is_executable") reports that additional metadata
+  files inherited another record''s executable bit. The PR adds test_ensure_non_executable_for_additional_metadata.'
+license:
+  spdx: MIT
+  files:
+  - path: LICENSE
+    blob: c8a93046d6bcc8bd74202b2cdce19e0f1263a14f
+    copyright: Copyright (c) 2020 Pradyun Gedam
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose executable-bit vocabulary (is_executable
+  reused across writes; the new test name contains non_executable/additional_metadata). Ground
+  truth paraphrases the defect ("leftover flag", "stale flag") and is checked by strict contamination
+  lint.
+mutation_prospect: High. Prior hermetic certification of this commit pair measured 100% kill
+  on 9 viable mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
+  2 admission is provisional.
+build_batch_status: batch-02 provisional
