@@ -9,27 +9,46 @@ because each case bundles a full source-plus-tests tree, which does not scale
 cleanly inside the core harness repository. The core repository remains the
 harness; this repository holds the data.
 
-## RealFix Pilot v1 — Batch 1
+## RealFix Pilot v1
 
-This is **RealFix Pilot v1, Batch 1**. It is a small methodology batch, **not** the
-complete Pilot v1.
+This pack now contains **20 cases**: the original Batch 1 pair plus 18 Batch 2
+additions. Count is past the protocol's "at least 12" methodology target. That does
+**not** make the pack ranking-scale. Twenty cases still cannot support model-
+performance conclusions; a two-proportion detection gap on this size remains on the
+order of 0.5. Batch 1 cases stay `batch-01 accepted`. Batch 2 cases are
+**provisional** until this repository's pinned image re-certifies them and a human
+completes the admission checklist. Do not treat provisional cases as paper-grade.
 
-- It contains **2 execution-verified cases** (a third approved candidate, tomlkit,
-  could not be built — see below — and is documented as a failed candidate).
 - Cases are **synthetic reverse-review cases derived from real fixes**: `after/` is
   the source *before* the historical repair, `before/` is the source *after* it, and
   the synthetic `pr.diff` is the inverse of the real change. They are **not** the
   original bug-introducing pull requests.
-- The batch supports **no model-performance conclusions**. It is a methodology
-  pilot, not a paper-scale benchmark.
-- The full Pilot v1 target remains **at least 12 diverse, verified cases**.
+- The windowed more-itertools fix already in Batch 1 was **not** imported again.
 
-### Built cases (both `verified` via Docker)
+### Built cases
 
-| case id | upstream | category | license |
-|---|---|---|---|
-| `more_itertools_windowed_zero_size_001` | more-itertools/more-itertools | input-validation | MIT |
-| `packaging_dependency_group_error_cache_001` | pypa/packaging | state-management | Apache-2.0 OR BSD-2-Clause |
+| case id | upstream | batch | category | license |
+|---|---|---|---|---|
+| `more_itertools_windowed_zero_size_001` | more-itertools/more-itertools | 1 accepted | input-validation | MIT |
+| `packaging_dependency_group_error_cache_001` | pypa/packaging | 1 accepted | state-management | Apache-2.0 OR BSD-2-Clause |
+| `packaging_infinity_self_comparison_001` | pypa/packaging | 2 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `packaging_normalized_name_double_hyphen_001` | pypa/packaging | 2 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `packaging_direct_url_at_in_password_001` | pypa/packaging | 2 provisional | security | Apache-2.0 OR BSD-2-Clause |
+| `packaging_empty_project_name_001` | pypa/packaging | 2 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `packaging_nested_extra_normalization_001` | pypa/packaging | 2 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `packaging_license_empty_parens_001` | pypa/packaging | 2 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `more_itertools_numeric_range_reversed_empty_001` | more-itertools/more-itertools | 2 provisional | correctness | MIT |
+| `more_itertools_split_before_empty_001` | more-itertools/more-itertools | 2 provisional | correctness | MIT |
+| `more_itertools_last_reversed_none_001` | more-itertools/more-itertools | 2 provisional | correctness | MIT |
+| `more_itertools_chunked_even_001` | more-itertools/more-itertools | 2 provisional | correctness | MIT |
+| `more_itertools_split_after_maxsplit_001` | more-itertools/more-itertools | 2 provisional | correctness | MIT |
+| `idna_invalid_alabel_001` | kjd/idna | 2 provisional | correctness | BSD-3-Clause |
+| `idna_non_ascii_bytes_encode_001` | kjd/idna | 2 provisional | correctness | BSD-3-Clause |
+| `idna_non_string_input_001` | kjd/idna | 2 provisional | correctness | BSD-3-Clause |
+| `idna_unknown_codepoint_joiner_001` | kjd/idna | 2 provisional | correctness | BSD-3-Clause |
+| `installer_path_traversal_001` | pypa/installer | 2 provisional | security | MIT |
+| `installer_unbound_executable_001` | pypa/installer | 2 provisional | correctness | MIT |
+| `tomli_text_mode_load_001` | hukkin/tomli | 2 provisional | correctness | MIT |
 
 ### Held / failed candidates (not built)
 
@@ -76,7 +95,8 @@ packs/realfix_pilot_v1/                                                # generat
   manifest.yaml  pack.sha256  THIRD_PARTY_NOTICES.md  licenses/  <case dirs>
 docker/realfix_pilot/{Dockerfile, requirements.txt, build.sh}         # hermetic test image
 scripts/rebuild_batch_01.py                                           # deterministic rebuilder
-docs/batch-01-report.md                                               # full results
+docs/batch-01-report.md                                               # Batch 1 results
+docs/batch-02-report.md                                               # Batch 2 (provisional)
 requirements-harness.txt                                             # pinned Code Review Arena
 ```
 
