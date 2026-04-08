@@ -1,4 +1,5 @@
-# Code Review Arena harness, pinned to the merged release commit (PR #22 merge).
+# Code Review Arena harness, pinned. This pin must be new enough to parse the
+# case `origin` block (added 2026-08-18); the earlier PR #22 pin rejects it.
 # The dataset repository uses the harness only as an external, pinned tool; it does
 # not vendor or modify harness code.
-codereview-arena @ git+https://github.com/hari-kancharla/code-review-arena@3e77aa1a13fde271cce02b4b716dd74add1e547c
+codereview-arena @ git+https://github.com/hari-kancharla/code-review-arena@8194b1e462cf0c939e3aaaa2331d92ea78c23c1d

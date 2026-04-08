@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     env:
-      HARNESS_COMMIT: 3e77aa1a13fde271cce02b4b716dd74add1e547c
+      HARNESS_COMMIT: 8194b1e462cf0c939e3aaaa2331d92ea78c23c1d
     steps:
       - name: Checkout dataset repository
         uses: actions/checkout@v4

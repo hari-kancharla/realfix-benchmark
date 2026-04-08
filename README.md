@@ -121,7 +121,7 @@ requirements-harness.txt                                             # pinned Co
 ## Reproduce
 
 ```bash
-pip install -r requirements-harness.txt          # Code Review Arena pinned @ 3e77aa1
+pip install -r requirements-harness.txt          # Code Review Arena, pinned
 docker/realfix_pilot/build.sh                     # build realfix-pilot:2
 python scripts/rebuild_pack.py                    # deterministic pack rebuild
 arena validate packs/realfix_pilot_v1
