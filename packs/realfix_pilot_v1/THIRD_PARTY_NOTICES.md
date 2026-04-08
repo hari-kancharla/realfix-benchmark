@@ -78,6 +78,19 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `src/installer/destinations.py`.
 
+## installer_unbound_executable_001
+
+- Project: installer
+- Source repository: https://github.com/pypa/installer
+- License: MIT
+- License files:
+  - `licenses/installer-MIT.txt` (`LICENSE`)
+- Buggy commit: `de073ce0d45b9249e2b008df5ac391245e89a283`
+- Fixed commit: `6c3118d04e9a279f8f5b972ba797387451c7a6b4`
+- Included content: the `src/installer` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/installer/_core.py`.
+
 ## more_itertools_chunked_even_001
 
 - Project: more-itertools
