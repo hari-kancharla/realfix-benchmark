@@ -265,6 +265,18 @@ CASES = [
         "spdx": "BSD-3-Clause",
         "licenses": [("LICENSE.md", "idna-BSD-3-Clause-2013-2024.txt")],
     },
+    {
+        "id": "installer_path_traversal_001",
+        "repo_url": "https://github.com/pypa/installer",
+        "source_label": "pypa/installer",
+        "buggy": "504fa8f980641c82868af834f5d30b485ad8a902",
+        "fixed": "2eccd66b344de24ee7acc6fc01741a8aa2713f05",
+        "source_tree": "src/installer",
+        "changed_source": "src/installer/destinations.py",
+        "project": "installer",
+        "spdx": "MIT",
+        "licenses": [("LICENSE", "installer-MIT.txt")],
+    },
     # tomlkit_malformed_array_element_001 is intentionally excluded from Batch 1:
     # at the fixed commit the tests/ tree contains a git submodule (tests/toml-test,
     # gitlink mode 160000) that the importer correctly refuses to materialize, and the

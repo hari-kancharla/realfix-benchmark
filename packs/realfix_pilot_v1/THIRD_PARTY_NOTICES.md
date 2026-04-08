@@ -65,6 +65,19 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `idna/core.py`.
 
+## installer_path_traversal_001
+
+- Project: installer
+- Source repository: https://github.com/pypa/installer
+- License: MIT
+- License files:
+  - `licenses/installer-MIT.txt` (`LICENSE`)
+- Buggy commit: `504fa8f980641c82868af834f5d30b485ad8a902`
+- Fixed commit: `2eccd66b344de24ee7acc6fc01741a8aa2713f05`
+- Included content: the `src/installer` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/installer/destinations.py`.
+
 ## more_itertools_chunked_even_001
 
 - Project: more-itertools

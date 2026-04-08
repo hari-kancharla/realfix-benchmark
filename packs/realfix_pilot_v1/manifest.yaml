@@ -3,6 +3,7 @@ cases:
 - idna_non_ascii_bytes_encode_001
 - idna_non_string_input_001
 - idna_unknown_codepoint_joiner_001
+- installer_path_traversal_001
 - more_itertools_chunked_even_001
 - more_itertools_last_reversed_none_001
 - more_itertools_numeric_range_reversed_empty_001
