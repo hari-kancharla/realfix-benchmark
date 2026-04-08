@@ -1,0 +1,43 @@
+case_id: installer_path_traversal_001
+source_label: pypa/installer
+repository_url: https://github.com/pypa/installer
+object_format: sha1
+buggy_commit: 504fa8f980641c82868af834f5d30b485ad8a902
+fixed_commit: 2eccd66b344de24ee7acc6fc01741a8aa2713f05
+buggy_tree: 86d1779ddeaf9ca564ccc01c606df331e87295fe
+fixed_tree: d20af4377065d84f0e5486814735e85d79b219ef
+fixed_date: '2026-03-28'
+issue_url: https://github.com/pypa/installer/pull/317
+pull_request_url: https://github.com/pypa/installer/pull/317
+changed_paths:
+- src/installer/destinations.py
+- tests/test_destinations.py
+source_selectors:
+- src/installer
+tests_root: tests
+regression_test_path: tests/test_destinations.py
+regression_test_function: test_blocking_path_traversal
+defect_evidence: 'PR #317 ("Fix path traversal bug") reports that a wheel destination joined
+  a scheme directory with a caller-supplied relative path and wrote there with no containment
+  check. The PR adds test_blocking_path_traversal.'
+license:
+  spdx: MIT
+  files:
+  - path: LICENSE
+    blob: c8a93046d6bcc8bd74202b2cdce19e0f1263a14f
+    copyright: Copyright (c) 2020 Pradyun Gedam
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose path-traversal vocabulary (the new
+  test is named test_blocking_path_traversal). Ground truth paraphrases the defect ("parent-directory
+  segments", "path containment") and is checked by strict contamination lint.
+mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 62%
+  kill on 13 viable mutants. Re-certification on realfix-pilot-batch-01:1 is still required;
+  Batch 2 admission is provisional.
+build_batch_status: batch-02 provisional
