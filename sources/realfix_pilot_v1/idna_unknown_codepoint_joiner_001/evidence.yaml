@@ -1,0 +1,44 @@
+case_id: idna_unknown_codepoint_joiner_001
+source_label: kjd/idna
+repository_url: https://github.com/kjd/idna
+object_format: sha1
+buggy_commit: 1d365e17e10d72d0b7876316fc7b9ca0eebdd38d
+fixed_commit: b0d8f3c45d83b8b9bce0975a59f0c8ab6645694c
+buggy_tree: 0da6278b97941d490fd137539c2f225379f873b2
+fixed_tree: cc6e7101bb21a9e4d7e4c8d4d82889b368f7f6c3
+fixed_date: '2024-04-24'
+issue_url: null
+pull_request_url: https://github.com/kjd/idna/commit/b0d8f3c45d83b8b9bce0975a59f0c8ab6645694c
+changed_paths:
+- idna/core.py
+- tests/test_idna.py
+source_selectors:
+- idna
+tests_root: tests
+regression_test_path: tests/test_idna.py
+regression_test_function: test_decode
+defect_evidence: Commit b0d8f3c ("Restore IDNAError exception for codepoints that don't exist
+  in Unicode") reports that an unknown neighbour of a joiner leaked ValueError. test_decode
+  is extended with that A-label and expects IDNAError.
+license:
+  spdx: BSD-3-Clause
+  files:
+  - path: LICENSE.md
+    blob: 19b6b45242c16a1025465309eec2ca5009319de3
+    copyright: Copyright (c) 2013-2024, Kim Davies and contributors.
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: Reviewer-visible surfaces expose CONTEXTJ/Unicode-data vocabulary
+  (valid_contextj raising ValueError; the covering method is test_decode). Ground truth paraphrases
+  the defect ("absent from Unicode data", "CONTEXTJ neighbour") and is checked by strict contamination
+  lint.
+mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 75%
+  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
+  2 admission is provisional.
+build_batch_status: batch-02 provisional
