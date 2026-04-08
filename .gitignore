@@ -3,6 +3,6 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
-# Transient build state produced by scripts/rebuild_batch_01.py (never committed):
+# Transient build state produced by scripts/rebuild_pack.py (never committed):
 .rebuild-tmp/
 *.egg-info/

@@ -3,7 +3,7 @@ description: Extra canonicalization only inspected a top-level comparison tuple,
   an extra nested inside a parenthesized group kept its original spelling and failed
   to match the canonical extra name.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

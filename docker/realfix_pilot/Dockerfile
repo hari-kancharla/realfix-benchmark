@@ -1,8 +1,9 @@
-# RealFix Pilot v1 Batch 1 hermetic test image: realfix-pilot-batch-01:1
-# Carries no Arena source and no benchmark/upstream source. Each case bind-mounts its
+# RealFix Pilot v1 hermetic test image: realfix-pilot:2
+# Carries no harness source and no benchmark/upstream source. Each case bind-mounts its
 # materialized tree at /workspace and runs with --network none. PYTHONPATH=/workspace/src
-# makes src-layout packages (e.g. src/packaging) importable from the materialized source;
-# flat-layout packages (more_itertools, tomlkit) import from the working directory.
+# makes src-layout packages (e.g. src/packaging, src/click, src/attr) importable from the
+# materialized source; flat-layout packages (more_itertools, rich, idna) import from the
+# working directory.
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \

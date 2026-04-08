@@ -3,7 +3,7 @@ description: check_label asked valid_contextj whether a CONTEXTJ codepoint was a
   and that helper raised ValueError when an adjacent codepoint was missing from Unicode
   data, so encode/decode leaked ValueError instead of IDNAError.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

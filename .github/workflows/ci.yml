@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  batch-01:
+  pack:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     env:
@@ -33,8 +33,8 @@ jobs:
           arena --help >/dev/null
           pip show codereview-arena | grep -i '^Name'
 
-      - name: Build the Batch 1 hermetic test image
-        run: docker build --tag realfix-pilot-batch-01:1 docker/realfix_pilot
+      - name: Build the hermetic test image
+        run: docker build --tag realfix-pilot:2 docker/realfix_pilot
 
       - name: Validate the pack
         run: arena validate packs/realfix_pilot_v1
@@ -53,8 +53,8 @@ jobs:
           print("pack.sha256 OK:", got)
           PY
 
-      - name: Certify the pack through Docker (mutation limit 20, determinism 3)
-        run: arena certify-pack packs/realfix_pilot_v1 --limit 20 --determinism-runs 3 --strict verified
+      - name: Certify the pack through Docker (mutation limit 25, determinism 3)
+        run: arena certify-pack packs/realfix_pilot_v1 --limit 25 --determinism-runs 3 --strict verified
 
       - name: Controls
         run: |
@@ -87,6 +87,6 @@ jobs:
 
       - name: Deterministic rebuild check
         run: |
-          python scripts/rebuild_batch_01.py
+          python scripts/rebuild_pack.py
           git diff --exit-code -- packs/realfix_pilot_v1 \
             || { echo "rebuild was not byte-identical"; exit 1; }

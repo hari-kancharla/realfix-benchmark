@@ -3,7 +3,7 @@ description: When maxsplit reached one, split_after always yielded the rest of t
   iterable, including when nothing remained, so a split that consumed the input produced
   a trailing empty chunk.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

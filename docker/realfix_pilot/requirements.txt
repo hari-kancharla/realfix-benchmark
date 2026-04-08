@@ -1,6 +1,7 @@
-# RealFix Pilot v1 Batch 1 test runtime - pinned. Built into realfix-pilot-batch-01:1.
-# pytest is the only runtime dependency required by the three Batch 1 cases
-# (packaging, more-itertools, tomlkit are pure-Python with zero runtime deps, and
-# their targeted regression tests import nothing beyond the standard library and the
-# materialized package source). Confirmed by the evidence-lock reproductions.
+# RealFix Pilot v1 test runtime - pinned. Built into realfix-pilot:2.
+# pytest: universal test runner for the pack's pure-Python cases.
+# hypothesis: import-time dependency of some upstream test modules (notably attrs);
+#   the admitted cases target non-property tests, so it is never exercised for
+#   randomness and no case depends on generated data.
 pytest==8.3.5
+hypothesis==6.140.3

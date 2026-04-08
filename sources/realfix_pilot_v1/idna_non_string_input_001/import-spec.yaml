@@ -38,7 +38,7 @@ execution:
   run_tests: true
   test_command: pytest tests/test_idna.py -q
   timeout_seconds: 120
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
 validation:
   patch_required: true
   tests_required: true

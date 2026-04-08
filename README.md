@@ -1,23 +1,35 @@
 # realfix-benchmark
 
 Execution-verified historical code-review benchmark cases for
-[Code Review Arena](https://github.com/harihkk/code-review-arena).
+[Code Review Arena](https://github.com/hari-kancharla/code-review-arena).
 
-This repository is a **separate, versioned dataset** that vendors complete,
-runnable reverse-review snapshots derived from real upstream bug fixes. It exists
-because each case bundles a full source-plus-tests tree, which does not scale
-cleanly inside the core harness repository. The core repository remains the
-harness; this repository holds the data.
+**Code Review Arena is the harness; this repository is its dataset.** Arena is the
+product that runs and scores reviewers; RealFix is the execution-verified case data it
+runs against. They are split because each case bundles a full source-plus-tests tree,
+which does not scale cleanly inside the harness repository. This repository is the
+**single authoritative home of every RealFix case** — the harness repository holds no
+case data of its own. Arena is consumed here as an external, pinned dependency
+(`requirements-harness.txt`); nothing in this repository is vendored into it.
 
 ## RealFix Pilot v1
 
-This pack now contains **20 cases**: the original Batch 1 pair plus 18 Batch 2
-additions. Count is past the protocol's "at least 12" methodology target. That does
-**not** make the pack ranking-scale. Twenty cases still cannot support model-
-performance conclusions; a two-proportion detection gap on this size remains on the
-order of 0.5. Batch 1 cases stay `batch-01 accepted`. Batch 2 cases are
-**provisional** until this repository's pinned image re-certifies them and a human
-completes the admission checklist. Do not treat provisional cases as paper-grade.
+This pack contains **25 cases**: the original Batch 1 pair, 18 Batch 2 additions, and
+5 Batch 3 cases consolidated from the harness repository's former `realfix_seed_v0`
+seed. Count is past the protocol's "at least 12" methodology target. That does **not**
+make the pack ranking-scale. Twenty-five cases still cannot support model-performance
+conclusions; a two-proportion detection gap on this size remains coarse. Batch 1 cases
+stay `batch-01 accepted`. Batch 2 and Batch 3 cases are **provisional** until this
+repository's CI re-certifies them under the current image and a human completes the
+admission checklist. Do not treat provisional cases as paper-grade.
+
+The hermetic test image is `realfix-pilot:2`. It supersedes `realfix-pilot-batch-01:1`
+and adds the pinned `hypothesis` runtime that some upstream test modules import at
+collection time. Because the image changed, CI re-certifies **all 25** cases rather
+than carrying prior certification forward.
+
+Batch 3 cases additionally carry an `origin` block recording each fix's public date and
+its basis, which supports the harness's training-data exposure split. Batches 1 and 2
+do not yet carry that block.
 
 - Cases are **synthetic reverse-review cases derived from real fixes**: `after/` is
   the source *before* the historical repair, `before/` is the source *after* it, and
@@ -49,6 +61,11 @@ completes the admission checklist. Do not treat provisional cases as paper-grade
 | `installer_path_traversal_001` | pypa/installer | 2 provisional | security | MIT |
 | `installer_unbound_executable_001` | pypa/installer | 2 provisional | correctness | MIT |
 | `tomli_text_mode_load_001` | hukkin/tomli | 2 provisional | correctness | MIT |
+| `attrs_frozen_error_message_001` | python-attrs/attrs | 3 provisional | correctness | MIT |
+| `click_shared_default_precedence_001` | pallets/click | 3 provisional | correctness | BSD-3-Clause |
+| `packaging_marker_extra_normalization_001` | pypa/packaging | 3 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `packaging_name_validation_newline_001` | pypa/packaging | 3 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
+| `rich_table_padding_width_001` | Textualize/rich | 3 provisional | correctness | MIT |
 
 ### Held / failed candidates (not built)
 
@@ -94,7 +111,7 @@ sources/realfix_pilot_v1/<case-id>/{import-spec.yaml, evidence.yaml}   # human i
 packs/realfix_pilot_v1/                                                # generated pack
   manifest.yaml  pack.sha256  THIRD_PARTY_NOTICES.md  licenses/  <case dirs>
 docker/realfix_pilot/{Dockerfile, requirements.txt, build.sh}         # hermetic test image
-scripts/rebuild_batch_01.py                                           # deterministic rebuilder
+scripts/rebuild_pack.py                                               # deterministic rebuilder
 docs/batch-01-report.md                                               # Batch 1 results
 docs/batch-02-report.md                                               # Batch 2 (provisional)
 requirements-harness.txt                                             # pinned Code Review Arena
@@ -104,11 +121,11 @@ requirements-harness.txt                                             # pinned Co
 
 ```bash
 pip install -r requirements-harness.txt          # Code Review Arena pinned @ 3e77aa1
-docker/realfix_pilot/build.sh                     # build realfix-pilot-batch-01:1
-python scripts/rebuild_batch_01.py                # deterministic pack rebuild
+docker/realfix_pilot/build.sh                     # build realfix-pilot:2
+python scripts/rebuild_pack.py                    # deterministic pack rebuild
 arena validate packs/realfix_pilot_v1
 arena lint-cases packs/realfix_pilot_v1 --strict
-arena certify-pack packs/realfix_pilot_v1 --limit 20 --determinism-runs 3
+arena certify-pack packs/realfix_pilot_v1 --limit 25 --determinism-runs 3
 ```
 
 ## Licensing

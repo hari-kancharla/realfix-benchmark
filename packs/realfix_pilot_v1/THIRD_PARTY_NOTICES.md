@@ -13,6 +13,32 @@ and at the **fixed** commit (as `before/`), and the selected test tree at the fi
 commit (as `tests/`). The exact selectors and changed paths for each case are
 recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
 
+## attrs_frozen_error_message_001
+
+- Project: attrs
+- Source repository: https://github.com/python-attrs/attrs
+- License: MIT
+- License files:
+  - `licenses/attrs-MIT.txt` (`LICENSE`)
+- Buggy commit: `eccd966d80aff5196efc959316961cfa780439f9`
+- Fixed commit: `ce89f5d11feb0805da9ed10bb165238cc959f1bb`
+- Included content: the `src/attr` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/attr/exceptions.py`.
+
+## click_shared_default_precedence_001
+
+- Project: click
+- Source repository: https://github.com/pallets/click
+- License: BSD-3-Clause
+- License files:
+  - `licenses/click-BSD-3-Clause.txt` (`LICENSE.txt`)
+- Buggy commit: `6a1c0d077311f180b356965914e2de5b9e0fdb44`
+- Fixed commit: `1c20dc6e724cd5625faaa17b715ba928d44c08bf`
+- Included content: the `src/click` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/click/core.py`.
+
 ## idna_invalid_alabel_001
 
 - Project: idna
@@ -244,6 +270,36 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/licenses/__init__.py`.
 
+## packaging_marker_extra_normalization_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `8a805e3baac2d71958ec0d0beffbe4d51fd5795f`
+- Fixed commit: `1c09ddf30b79428c21aec180f52e10f6dedc1d8a`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/markers.py`.
+
+## packaging_name_validation_newline_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `033854a05229074ddb191d67da1f8e0165e665da`
+- Fixed commit: `258202ed7f796bdb8a65252a66c3fbd3e69e97f6`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/utils.py`.
+
 ## packaging_nested_extra_normalization_001
 
 - Project: packaging
@@ -273,6 +329,19 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
 - Included content: the `src/packaging` source tree (buggy and fixed)
   and the `tests` tree at the fixed commit. Changed source path:
   `src/packaging/utils.py`.
+
+## rich_table_padding_width_001
+
+- Project: rich
+- Source repository: https://github.com/Textualize/rich
+- License: MIT
+- License files:
+  - `licenses/rich-MIT.txt` (`LICENSE`)
+- Buggy commit: `fe55a131c2780fa856464ad04d7d6dc8a1079b72`
+- Fixed commit: `1c5e03eb32020011f5b13174e186c588d09d749c`
+- Included content: the `rich` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `rich/table.py`.
 
 ## tomli_text_mode_load_001
 

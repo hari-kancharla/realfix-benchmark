@@ -3,7 +3,7 @@ description: The wheel project-name pattern used a star quantifier and the sdist
   never checked the name side of the last dash, so filenames such as -1.0-py3-none-any.whl
   and -1.0.tar.gz parsed as a nameless distribution instead of being rejected.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

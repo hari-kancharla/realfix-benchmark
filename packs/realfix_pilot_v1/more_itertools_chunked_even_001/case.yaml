@@ -2,7 +2,7 @@ category: correctness
 description: The online path of chunked_even sized its lookahead buffer as n*(n-1)-1,
   which is too small for some n and produced uneven chunks from a streaming iterable.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

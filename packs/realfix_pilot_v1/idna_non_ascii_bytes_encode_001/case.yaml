@@ -3,7 +3,7 @@ description: idna.encode decoded a bytes argument with ascii and let UnicodeDeco
   escape, so a non-ASCII byte string raised a raw codec error instead of the documented
   IDNAError.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

@@ -3,7 +3,7 @@ description: Stripping userinfo from a direct URL netloc used split on the first
   so a password that itself contained '@' left part of the secret in the published
   URL.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

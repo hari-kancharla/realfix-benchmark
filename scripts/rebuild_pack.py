@@ -29,7 +29,7 @@ SOURCES = REPO_ROOT / "sources" / "realfix_pilot_v1"
 PACK = REPO_ROOT / "packs" / "realfix_pilot_v1"
 PACK_NAME = "RealFix Pilot v1"
 PACK_VERSION = "realfix_pilot_v1"
-DOCKER_IMAGE = "realfix-pilot-batch-01:1"
+DOCKER_IMAGE = "realfix-pilot:2"
 
 # Pinned, immutable per-case facts. Buggy is the parent of fixed (verified below).
 CASES = [
@@ -301,7 +301,75 @@ CASES = [
         "spdx": "MIT",
         "licenses": [("LICENSE", "tomli-MIT.txt")],
     },
-    # tomlkit_malformed_array_element_001 is intentionally excluded from Batch 1:
+    {
+        "id": "attrs_frozen_error_message_001",
+        "repo_url": "https://github.com/python-attrs/attrs",
+        "source_label": "python-attrs/attrs",
+        "buggy": "eccd966d80aff5196efc959316961cfa780439f9",
+        "fixed": "ce89f5d11feb0805da9ed10bb165238cc959f1bb",
+        "source_tree": "src/attr",
+        "changed_source": "src/attr/exceptions.py",
+        "project": "attrs",
+        "spdx": "MIT",
+        "licenses": [("LICENSE", "attrs-MIT.txt")],
+    },
+    {
+        "id": "click_shared_default_precedence_001",
+        "repo_url": "https://github.com/pallets/click",
+        "source_label": "pallets/click",
+        "buggy": "6a1c0d077311f180b356965914e2de5b9e0fdb44",
+        "fixed": "1c20dc6e724cd5625faaa17b715ba928d44c08bf",
+        "source_tree": "src/click",
+        "changed_source": "src/click/core.py",
+        "project": "click",
+        "spdx": "BSD-3-Clause",
+        "licenses": [("LICENSE.txt", "click-BSD-3-Clause.txt")],
+    },
+    {
+        "id": "packaging_marker_extra_normalization_001",
+        "repo_url": "https://github.com/pypa/packaging",
+        "source_label": "pypa/packaging",
+        "buggy": "8a805e3baac2d71958ec0d0beffbe4d51fd5795f",
+        "fixed": "1c09ddf30b79428c21aec180f52e10f6dedc1d8a",
+        "source_tree": "src/packaging",
+        "changed_source": "src/packaging/markers.py",
+        "project": "packaging",
+        "spdx": "Apache-2.0 OR BSD-2-Clause",
+        "licenses": [
+            ("LICENSE", "packaging-LICENSE.txt"),
+            ("LICENSE.APACHE", "packaging-Apache-2.0.txt"),
+            ("LICENSE.BSD", "packaging-BSD-2-Clause.txt"),
+        ],
+    },
+    {
+        "id": "packaging_name_validation_newline_001",
+        "repo_url": "https://github.com/pypa/packaging",
+        "source_label": "pypa/packaging",
+        "buggy": "033854a05229074ddb191d67da1f8e0165e665da",
+        "fixed": "258202ed7f796bdb8a65252a66c3fbd3e69e97f6",
+        "source_tree": "src/packaging",
+        "changed_source": "src/packaging/utils.py",
+        "project": "packaging",
+        "spdx": "Apache-2.0 OR BSD-2-Clause",
+        "licenses": [
+            ("LICENSE", "packaging-LICENSE.txt"),
+            ("LICENSE.APACHE", "packaging-Apache-2.0.txt"),
+            ("LICENSE.BSD", "packaging-BSD-2-Clause.txt"),
+        ],
+    },
+    {
+        "id": "rich_table_padding_width_001",
+        "repo_url": "https://github.com/Textualize/rich",
+        "source_label": "Textualize/rich",
+        "buggy": "fe55a131c2780fa856464ad04d7d6dc8a1079b72",
+        "fixed": "1c5e03eb32020011f5b13174e186c588d09d749c",
+        "source_tree": "rich",
+        "changed_source": "rich/table.py",
+        "project": "rich",
+        "spdx": "MIT",
+        "licenses": [("LICENSE", "rich-MIT.txt")],
+    },
+    # tomlkit_malformed_array_element_001 is intentionally excluded from the pack:
     # at the fixed commit the tests/ tree contains a git submodule (tests/toml-test,
     # gitlink mode 160000) that the importer correctly refuses to materialize, and the
     # targeted test sits beside it at the tests/ root, so no submodule-free tests_root

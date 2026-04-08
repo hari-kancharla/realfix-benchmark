@@ -3,7 +3,7 @@ description: SchemeDictionaryDestination joined a scheme directory with a caller
   relative path and wrote there with no containment check, so a path containing parent-directory
   segments could escape the intended install root.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null

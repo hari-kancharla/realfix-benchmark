@@ -309,8 +309,8 @@ paper-grade evidence.
 verify immutable Git provenance, issue/PR historical evidence, the
 buggy-fail/fixed-pass reproduction, the task-surface leakage analysis, the historical
 exposure assessment, and licensing and notices. The independent reviewer must be a
-real person other than the case builder. Automation and any language model (including
-Claude, ChatGPT, or any other model) do not count as the independent reviewer, and
+real person other than the case builder. Automation and any language model, of any vendor,
+does not count as the independent reviewer, and
 the builder cannot review their own case. When no independent human reviewer is
 available, the case remains provisionally accepted.
 

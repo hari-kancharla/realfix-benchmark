@@ -1,4 +1,6 @@
 cases:
+- attrs_frozen_error_message_001
+- click_shared_default_precedence_001
 - idna_invalid_alabel_001
 - idna_non_ascii_bytes_encode_001
 - idna_non_string_input_001
@@ -16,9 +18,12 @@ cases:
 - packaging_empty_project_name_001
 - packaging_infinity_self_comparison_001
 - packaging_license_empty_parens_001
+- packaging_marker_extra_normalization_001
+- packaging_name_validation_newline_001
 - packaging_nested_extra_normalization_001
 - packaging_normalized_name_double_hyphen_001
+- rich_table_padding_width_001
 - tomli_text_mode_load_001
-default_docker_image: realfix-pilot-batch-01:1
+default_docker_image: realfix-pilot:2
 name: RealFix Pilot v1
 version: realfix_pilot_v1

@@ -3,7 +3,7 @@ description: idna.encode and idna.decode caught only UnicodeDecodeError when coe
   a non-str argument, so values such as int or None raised a raw TypeError from str(...,
   'ascii') instead of the documented IDNAError.
 execution:
-  docker_image: realfix-pilot-batch-01:1
+  docker_image: realfix-pilot:2
   run_static_analysis: false
   run_tests: true
   static_analysis_command: null
