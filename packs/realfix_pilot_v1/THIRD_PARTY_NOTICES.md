@@ -52,6 +52,19 @@ recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
   and the `tests` tree at the fixed commit. Changed source path:
   `idna/core.py`.
 
+## idna_unknown_codepoint_joiner_001
+
+- Project: idna
+- Source repository: https://github.com/kjd/idna
+- License: BSD-3-Clause
+- License files:
+  - `licenses/idna-BSD-3-Clause-2013-2024.txt` (`LICENSE.md`)
+- Buggy commit: `1d365e17e10d72d0b7876316fc7b9ca0eebdd38d`
+- Fixed commit: `b0d8f3c45d83b8b9bce0975a59f0c8ab6645694c`
+- Included content: the `idna` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `idna/core.py`.
+
 ## more_itertools_chunked_even_001
 
 - Project: more-itertools
