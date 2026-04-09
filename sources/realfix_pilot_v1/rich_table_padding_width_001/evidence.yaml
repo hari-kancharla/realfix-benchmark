@@ -1,33 +1,71 @@
+case_id: rich_table_padding_width_001
 source_label: Textualize/rich
 repository_url: https://github.com/Textualize/rich
-license: MIT
-license_url: https://github.com/Textualize/rich/blob/1c5e03eb32020011f5b13174e186c588d09d749c/LICENSE
+object_format: sha1
 buggy_commit: fe55a131c2780fa856464ad04d7d6dc8a1079b72
 fixed_commit: 1c5e03eb32020011f5b13174e186c588d09d749c
-fixed_date: "2026-01-23"
+buggy_tree: 08070be2b24ac37b3e39494ca74cf69d76c99a8e
+fixed_tree: 9e243e1651ba7b196b62bb5d17fe6eee9469a862
+fixed_date: '2026-01-23'
 issue_url: https://github.com/Textualize/rich/issues/3871
 pull_request_url: https://github.com/Textualize/rich/pull/3935
-source_selectors: [rich]
+changed_paths:
+- rich/table.py
+- tests/test_columns.py
+- tests/test_table.py
+source_selectors:
+- rich
 tests_root: tests
-changed_source_paths: [rich/table.py]
-changed_test_paths: [tests/test_columns.py, tests/test_table.py]
+regression_test_path: tests/test_table.py
+regression_test_function: test_padding_width
+changed_source_paths:
+- rich/table.py
+changed_test_paths:
+- tests/test_columns.py
+- tests/test_table.py
 changed_source_line_count: 16
 category: correctness
-evidence_summary: >
-  Issue #3871 reports uneven padding between table cells. PR #3935 ("fix for padding
-  width", merged) rewrites Table._get_padding_width to handle collapsed padding and
-  to drop the outer padding of the first and last columns so spacing is consistent.
-why_buggy_behavior_is_wrong: >
-  A rendered table must have consistent padding between cells. In the buggy tree
-  _get_padding_width only reduced the left pad for collapsed padding on inner columns
-  and never accounted for the table's edge-padding setting, so edge and inner cells
-  contributed different padding widths and the table rendered with uneven spacing.
-fixed_tests_that_exercise_it: >
-  tests/test_table.py::test_padding_width (the regression test added by PR #3935,
-  citing issue #3871) renders a table and asserts even padding between cells. It fails
-  on the buggy tree and passes on the fixed tree.
-why_ground_truth_is_supported: >
-  The declared buggy logic (rich/table.py lines 699-705 in the after/ tree) is exactly
-  the _get_padding_width method PR #3935 rewrites, and issue #3871 establishes the
-  uneven-padding defect the regression test pins.
-admission_status: accepted
+defect_evidence: 'Issue #3871 reports uneven padding between table cells. PR #3935 ("fix for padding
+  width", merged) rewrites Table._get_padding_width to handle collapsed padding and to drop the
+  outer padding of the first and last columns so spacing is consistent.'
+evidence_summary: 'Issue #3871 reports uneven padding between table cells. PR #3935 ("fix for
+  padding width", merged) rewrites Table._get_padding_width to handle collapsed padding and to
+  drop the outer padding of the first and last columns so spacing is consistent.
+
+  '
+why_buggy_behavior_is_wrong: 'A rendered table must have consistent padding between cells. In
+  the buggy tree _get_padding_width only reduced the left pad for collapsed padding on inner columns
+  and never accounted for the table''s edge-padding setting, so edge and inner cells contributed
+  different padding widths and the table rendered with uneven spacing.
+
+  '
+why_ground_truth_is_supported: 'The declared buggy logic (rich/table.py lines 699-705 in the after/
+  tree) is exactly the _get_padding_width method PR #3935 rewrites, and issue #3871 establishes
+  the uneven-padding defect the regression test pins.
+
+  '
+fixed_tests_that_exercise_it: 'tests/test_table.py::test_padding_width (the regression test added
+  by PR #3935, citing issue #3871) renders a table and asserts even padding between cells. It
+  fails on the buggy tree and passes on the fixed tree.
+
+  '
+license:
+  spdx: MIT
+  files:
+  - path: LICENSE
+    blob: 4415505566f261c802b671426be529a31f914137
+    copyright: Copyright (c) 2020 Will McGugan
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: hypothesis 6.140.3 (import-time only)
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: 'Note for the reviewer: the added upstream test is named test_padding_width
+  and the ground-truth concept is "cell padding width". The overlap is upstream''s own naming,
+  not introduced here. Strict contamination lint passes.'
+mutation_prospect: 'Measured on realfix-pilot:2 in this repository''s CI: 84% kill on 25 mutants,
+  deterministic across 3 runs, baseline fails and reference passes. Verdict VERIFIED.'
+build_batch_status: batch-03 provisional

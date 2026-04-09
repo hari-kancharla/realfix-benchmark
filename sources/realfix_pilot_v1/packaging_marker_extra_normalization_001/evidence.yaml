@@ -1,40 +1,81 @@
+case_id: packaging_marker_extra_normalization_001
 source_label: pypa/packaging
 repository_url: https://github.com/pypa/packaging
-license: Apache-2.0 OR BSD-2-Clause
-license_url: https://github.com/pypa/packaging/blob/1c09ddf30b79428c21aec180f52e10f6dedc1d8a/LICENSE
+object_format: sha1
 buggy_commit: 8a805e3baac2d71958ec0d0beffbe4d51fd5795f
 fixed_commit: 1c09ddf30b79428c21aec180f52e10f6dedc1d8a
-fixed_date: "2026-01-05"
+buggy_tree: 5af158a9956d31077c50ee7ce564aa78fb05a529
+fixed_tree: 68c9b6adf2f9a36a6236221c086e290f80385fd7
+fixed_date: '2026-01-05'
 issue_url: https://github.com/pypa/packaging/pull/1024
 pull_request_url: https://github.com/pypa/packaging/pull/1024
-source_selectors: [src/packaging]
+changed_paths:
+- src/packaging/markers.py
+- tests/test_requirements.py
+source_selectors:
+- src/packaging
 tests_root: tests
-changed_source_paths: [src/packaging/markers.py]
-changed_test_paths: [tests/test_requirements.py]
+regression_test_path: tests/test_requirements.py
+regression_test_function: test_normalized_requirements
+changed_source_paths:
+- src/packaging/markers.py
+changed_test_paths:
+- tests/test_requirements.py
 changed_source_line_count: 28
 category: correctness
-evidence_summary: >
-  PR #1024 ("fix: normalize all extras, not just the first one") extracts the
-  per-marker normalization into a helper and maps it over the whole marker list.
-  The buggy implementation inspected and rewrote results[0] only, so an extra that
-  appeared anywhere other than the first position of a marker expression kept its
-  non-canonical spelling.
-why_buggy_behavior_is_wrong: >
-  Extras are compared after canonicalization, so 'extra == "mariadb_connector"' must
-  normalize to 'mariadb-connector' wherever it appears in the expression. Under the
-  buggy code the marker 'python_version >= "3" and extra == "mariadb_connector"' kept
-  the underscore, so it no longer compared equal to the canonical extra name and the
-  optional dependency was silently skipped -- a wrong install with no error.
-fixed_tests_that_exercise_it: >
-  tests/test_requirements.py::test_normalized_requirements asserts that both
-  'mariadb>=1.0.1; extra == "mariadb_connector"' and
-  'mariadb>=1.0.1; python_version >= "3" and extra == "mariadb_connector"' render with
-  the canonical 'mariadb-connector'. The second parameter, where the extra is not the
-  first marker, fails on the buggy tree and passes on the fixed tree. The case also
-  runs tests/test_markers.py so the suite covers the rest of src/packaging/markers.py,
-  which is what gives the case its mutation-kill evidence.
-why_ground_truth_is_supported: >
-  The declared buggy logic (src/packaging/markers.py lines 129-138 in the after/ tree)
-  is exactly the results[0]-only body of _normalize_extra_values that PR #1024 replaces
-  with a list comprehension over every element.
-admission_status: accepted
+defect_evidence: 'PR #1024 ("fix: normalize all extras, not just the first one") extracts the
+  per-marker normalization into a helper and maps it over the whole marker list. The buggy implementation
+  inspected and rewrote results[0] only, so an extra that appeared anywhere other than the first
+  position of a marker expression kept its non-canonical spelling.'
+evidence_summary: 'PR #1024 ("fix: normalize all extras, not just the first one") extracts the
+  per-marker normalization into a helper and maps it over the whole marker list. The buggy implementation
+  inspected and rewrote results[0] only, so an extra that appeared anywhere other than the first
+  position of a marker expression kept its non-canonical spelling.
+
+  '
+why_buggy_behavior_is_wrong: 'Extras are compared after canonicalization, so ''extra == "mariadb_connector"''
+  must normalize to ''mariadb-connector'' wherever it appears in the expression. Under the buggy
+  code the marker ''python_version >= "3" and extra == "mariadb_connector"'' kept the underscore,
+  so it no longer compared equal to the canonical extra name and the optional dependency was silently
+  skipped -- a wrong install with no error.
+
+  '
+why_ground_truth_is_supported: 'The declared buggy logic (src/packaging/markers.py lines 129-138
+  in the after/ tree) is exactly the results[0]-only body of _normalize_extra_values that PR #1024
+  replaces with a list comprehension over every element.
+
+  '
+fixed_tests_that_exercise_it: 'tests/test_requirements.py::test_normalized_requirements asserts
+  that both ''mariadb>=1.0.1; extra == "mariadb_connector"'' and ''mariadb>=1.0.1; python_version
+  >= "3" and extra == "mariadb_connector"'' render with the canonical ''mariadb-connector''. The
+  second parameter, where the extra is not the first marker, fails on the buggy tree and passes
+  on the fixed tree. The case also runs tests/test_markers.py so the suite covers the rest of
+  src/packaging/markers.py, which is what gives the case its mutation-kill evidence.
+
+  '
+license:
+  spdx: Apache-2.0 OR BSD-2-Clause
+  files:
+  - path: LICENSE
+    blob: 6f62d44e4ef733c0e713afcd2371fed7f2b3de67
+    copyright: ''
+  - path: LICENSE.APACHE
+    blob: f433b1a53f5b830a205fd2df78e2b34974656c7b
+    copyright: '"Licensor" shall mean the copyright owner or entity authorized by'
+  - path: LICENSE.BSD
+    blob: 42ce7b75c92fb01a3f6ed17eea363f756b7da582
+    copyright: Copyright (c) Donald Stufft and individual contributors.
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: hypothesis 6.140.3 (import-time only)
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: The inverse diff shows a single-element normalization where the fix iterates.
+  Ground truth says "only the first" without naming the marker API. Strict contamination lint
+  passes.
+mutation_prospect: 'Measured on realfix-pilot:2 in this repository''s CI: 100% kill on 25 mutants,
+  deterministic across 3 runs, baseline fails and reference passes. Verdict VERIFIED.'
+build_batch_status: batch-03 provisional

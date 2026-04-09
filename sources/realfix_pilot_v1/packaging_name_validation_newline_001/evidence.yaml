@@ -1,39 +1,81 @@
+case_id: packaging_name_validation_newline_001
 source_label: pypa/packaging
 repository_url: https://github.com/pypa/packaging
-license: Apache-2.0 OR BSD-2-Clause
-license_url: https://github.com/pypa/packaging/blob/258202ed7f796bdb8a65252a66c3fbd3e69e97f6/LICENSE
+object_format: sha1
 buggy_commit: 033854a05229074ddb191d67da1f8e0165e665da
 fixed_commit: 258202ed7f796bdb8a65252a66c3fbd3e69e97f6
-fixed_date: "2025-08-21"
+buggy_tree: 2daeee39847bdbc3177067a7d5d0ac324868fd54
+fixed_tree: 8ff5dbe10eabd0ababce0c1d1c29ea7b493f7d78
+fixed_date: '2025-08-21'
 issue_url: https://github.com/pypa/packaging/pull/925
 pull_request_url: https://github.com/pypa/packaging/pull/925
-source_selectors: [src/packaging]
+changed_paths:
+- src/packaging/utils.py
+- tests/test_utils.py
+source_selectors:
+- src/packaging
 tests_root: tests
-changed_source_paths: [src/packaging/utils.py]
-changed_test_paths: [tests/test_utils.py]
+regression_test_path: tests/test_utils.py
+regression_test_function: test_canonicalize_name_invalid
+changed_source_paths:
+- src/packaging/utils.py
+changed_test_paths:
+- tests/test_utils.py
 changed_source_line_count: 2
 category: security
-evidence_summary: >
-  PR #925 ("Correct regex for metadata 'name' format") replaces the "$" anchor in
-  the core-metadata Name validation pattern with "\Z". Python's re module treats
-  "$" as matching at the end of the string OR immediately before a trailing
-  newline, so the buggy pattern accepted names such as "hi\n". "\Z" matches only
-  at the true end of the string.
-why_buggy_behavior_is_wrong: >
-  canonicalize_name(name, validate=True) must raise InvalidName for any string that
-  is not a legal core-metadata Name. A trailing newline is not legal, yet the buggy
-  pattern matched it, so validation silently passed and the newline could be carried
-  into RFC822-style metadata fields where a line break changes the meaning of the
-  record. This is the standard Python "$ versus \Z" validation-bypass defect.
-fixed_tests_that_exercise_it: >
-  tests/test_utils.py::test_canonicalize_name_invalid is parametrized at the fixed
-  commit over "hi\n", "\nhi", "h\ni", "hi\r", "\rhi" and "h\ri" and asserts that each
-  raises InvalidName under validate=True. The trailing-newline parameters fail on the
-  buggy tree and pass on the fixed tree. The case runs the whole tests/test_utils.py
-  module so the suite also exercises the rest of src/packaging/utils.py, which is what
-  gives the case its mutation-kill evidence.
-why_ground_truth_is_supported: >
-  The declared buggy logic (src/packaging/utils.py line 38 in the after/ tree) is
-  exactly the "$"-anchored _validate_regex that PR #925 replaces, and the PR's added
-  parameters pin the trailing-newline acceptance the anchor caused.
-admission_status: accepted
+defect_evidence: 'PR #925 ("Correct regex for metadata ''name'' format") replaces the "$" anchor
+  in the core-metadata Name validation pattern with "\Z". Python''s re module treats "$" as matching
+  at the end of the string OR immediately before a trailing newline, so the buggy pattern accepted
+  names such as "hi\n". "\Z" matches only at the true end of the string.'
+evidence_summary: 'PR #925 ("Correct regex for metadata ''name'' format") replaces the "$" anchor
+  in the core-metadata Name validation pattern with "\Z". Python''s re module treats "$" as matching
+  at the end of the string OR immediately before a trailing newline, so the buggy pattern accepted
+  names such as "hi\n". "\Z" matches only at the true end of the string.
+
+  '
+why_buggy_behavior_is_wrong: 'canonicalize_name(name, validate=True) must raise InvalidName for
+  any string that is not a legal core-metadata Name. A trailing newline is not legal, yet the
+  buggy pattern matched it, so validation silently passed and the newline could be carried into
+  RFC822-style metadata fields where a line break changes the meaning of the record. This is the
+  standard Python "$ versus \Z" validation-bypass defect.
+
+  '
+why_ground_truth_is_supported: 'The declared buggy logic (src/packaging/utils.py line 38 in the
+  after/ tree) is exactly the "$"-anchored _validate_regex that PR #925 replaces, and the PR''s
+  added parameters pin the trailing-newline acceptance the anchor caused.
+
+  '
+fixed_tests_that_exercise_it: 'tests/test_utils.py::test_canonicalize_name_invalid is parametrized
+  at the fixed commit over "hi\n", "\nhi", "h\ni", "hi\r", "\rhi" and "h\ri" and asserts that
+  each raises InvalidName under validate=True. The trailing-newline parameters fail on the buggy
+  tree and pass on the fixed tree. The case runs the whole tests/test_utils.py module so the suite
+  also exercises the rest of src/packaging/utils.py, which is what gives the case its mutation-kill
+  evidence.
+
+  '
+license:
+  spdx: Apache-2.0 OR BSD-2-Clause
+  files:
+  - path: LICENSE
+    blob: 6f62d44e4ef733c0e713afcd2371fed7f2b3de67
+    copyright: ''
+  - path: LICENSE.APACHE
+    blob: f433b1a53f5b830a205fd2df78e2b34974656c7b
+    copyright: '"Licensor" shall mean the copyright owner or entity authorized by'
+  - path: LICENSE.BSD
+    blob: 42ce7b75c92fb01a3f6ed17eea363f756b7da582
+    copyright: Copyright (c) Donald Stufft and individual contributors.
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: '3.11'
+  pytest: 8.3.5
+  extra_runtime_dependencies: hypothesis 6.140.3 (import-time only)
+  network: none
+  plugins: none
+  submodules: none
+contamination_analysis: The inverse diff exposes a regex anchor change (`fullmatch`/`$`). Ground
+  truth says "trailing newline" and "end of string", which paraphrase the defect rather than quoting
+  the pattern. Strict contamination lint passes.
+mutation_prospect: 'Measured on realfix-pilot:2 in this repository''s CI: 100% kill on 12 mutants,
+  deterministic across 3 runs, baseline fails and reference passes. Verdict VERIFIED.'
+build_batch_status: batch-03 provisional
