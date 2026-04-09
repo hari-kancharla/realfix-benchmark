@@ -6,3 +6,6 @@ venv/
 # Transient build state produced by scripts/rebuild_pack.py (never committed):
 .rebuild-tmp/
 *.egg-info/
+
+# Reserve cases held back from the pack; never committed:
+/.reserve-cases/
