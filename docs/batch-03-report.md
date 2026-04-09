@@ -7,11 +7,12 @@
 > updated to their current locations, and the pack now runs under `realfix-pilot:2`
 > rather than the seed's own image.
 
-**Status: a five-case methodology seed.** This is **not** RealFix Pilot v1, it is
-**not** paper scale, and it supports **no** conclusions about model performance.
-The eventual RealFix Pilot v1 target remains a diverse set of **at least 12**
-cases; this seed exists to prove the end-to-end methodology and serve as a small
-executable example inside the harness repository.
+**Status: five cases, now Batch 3 of RealFix Pilot v1.** When this report was
+written they were a standalone five-case seed in the harness repository, below the
+protocol's "at least 12" target. They are now part of the 25-case Pilot v1 pack here.
+That is still **not** paper scale and supports **no** conclusions about model
+performance; the cases remain provisional until a person completes the admission
+checklist.
 
 It converts real, historical bug fixes from mature open-source Python projects
 into execution-verified Code Review Arena cases using the merged deterministic
@@ -88,9 +89,10 @@ around by modifying the importer.
 
 ## Docker environment
 
-- Image tag: `arena-realfix-seed:0` (built from `docker/realfix_seed/`).
-- Local image id: `sha256:8a1c4957a9a5c3b87b13f00a08bb54272f9cbd7129f519f6cc98bbef5fa500a6`.
-- Base: `python:3.11-slim` (Python 3.11.15). Pinned: `pytest==8.3.5`, `hypothesis==6.140.3` (import-time dependency of attrs' test module only; no property-based test is exercised). `PYTHONPATH=/workspace/src`.
+- Image tag: `realfix-pilot:2` (built from `docker/realfix_pilot/`). The original
+  `arena-realfix-seed:0` image was retired when these cases moved here; the two carry
+  the same base and the same pins, and CI re-certified all 25 cases under the new tag.
+- Base: `python:3.11-slim`. Pinned: `pytest==8.3.5`, `hypothesis==6.140.3` (import-time dependency of attrs' test module only; no property-based test is exercised). `PYTHONPATH=/workspace/src`.
 - No Arena source, no repository checkout, no network at test time (`--network none`), no credentials, no mutable installation during a run.
 
 ## Certification (Docker)
@@ -141,9 +143,9 @@ core harness repository will not scale cleanly** to a 12+ case Pilot v1 or beyon
 Future RealFix expansion should therefore be maintained as a **separate versioned
 dataset repository or content-addressed release artifact**, not grown indefinitely
 inside `code-review-arena`. The core `code-review-arena` repository will remain the
-harness and may keep only this small seed as an executable example. (That external
-dataset repository / artifact system is intentionally **not** implemented in this
-change; this is only the packaging decision.)
+harness. (At the time this was only the packaging decision, with no dataset
+repository implemented. It has since been carried out: this repository is that
+dataset, and `code-review-arena` now ships no case data at all.)
 
 ## Limitations
 
