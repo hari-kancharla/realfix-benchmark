@@ -1,43 +1,63 @@
 # realfix-benchmark
 
-Execution-verified historical code-review benchmark cases for
-[Code Review Arena](https://github.com/hari-kancharla/code-review-arena).
+Real bug fixes from real Python projects, turned into code-review test cases that
+actually run.
 
-**Code Review Arena is the harness; this repository is its dataset.** Arena is the
-product that runs and scores reviewers; RealFix is the execution-verified case data it
-runs against. They are split because each case bundles a full source-plus-tests tree,
-which does not scale cleanly inside the harness repository. This repository is the
-**single authoritative home of every RealFix case** — the harness repository holds no
-case data of its own. Arena is consumed here as an external, pinned dependency
-(`requirements-harness.txt`); nothing in this repository is vendored into it.
+## What this is
 
-## RealFix Pilot v1
+[Code Review Arena](https://github.com/hari-kancharla/code-review-arena) is the tool.
+This repository is the data it runs on.
 
-This pack contains **25 cases**: the original Batch 1 pair, 18 Batch 2 additions, and
-5 Batch 3 cases consolidated from the harness repository's former `realfix_seed_v0`
-seed. Count is past the protocol's "at least 12" methodology target. That does **not**
-make the pack ranking-scale. Twenty-five cases still cannot support model-performance
-conclusions; a two-proportion detection gap on this size remains coarse. Batch 1 cases
-stay `batch-01 accepted`. Batch 2 and Batch 3 cases are **provisional** until this
-repository's CI re-certifies them under the current image and a human completes the
-admission checklist. Do not treat provisional cases as paper-grade.
+Every RealFix case lives here, and nowhere else. The Arena repository holds the code
+that runs and scores reviewers, but it ships no cases. This repository installs Arena
+as a pinned dependency and uses it to build and check the cases.
 
-The hermetic test image is `realfix-pilot:2`. It supersedes `realfix-pilot-batch-01:1`
-and adds the pinned `hypothesis` runtime that some upstream test modules import at
-collection time. Because the image changed, CI re-certifies **all 25** cases rather
-than carrying prior certification forward.
+They are separate repositories because each case ships a full copy of a project's
+source and tests. That is a lot of data to keep next to the tool.
 
-Every case carries an `origin` block recording its fix's public date and the basis for
-that date, which supports the harness's training-data exposure split. The dates are read
-from the upstream commit objects by the importer, never entered by hand.
+## How a case works
 
-- Cases are **synthetic reverse-review cases derived from real fixes**: `after/` is
-  the source *before* the historical repair, `before/` is the source *after* it, and
-  the synthetic `pr.diff` is the inverse of the real change. They are **not** the
-  original bug-introducing pull requests.
-- The windowed more-itertools fix already in Batch 1 was **not** imported again.
+Each case starts from a real bug fix in a real project. We take the code from just
+before the fix and just after it, then show the change backwards. The reviewer sees a
+diff that puts the bug back in, and has to catch it.
 
-### Built cases
+Inside a case directory:
+
+- `before/` is the fixed code
+- `after/` is the buggy code
+- `pr.diff` is the real fix, reversed
+- `tests/` is the project's own test suite at the fixed commit
+
+These are not the original pull requests that introduced the bugs. We build them from
+the fixes. The tests are the upstream project's, unmodified, so a case passes or fails
+on real behaviour rather than on our opinion.
+
+Each case also records when its fix became public, read from the upstream commit
+itself. Arena uses those dates to check whether a model could have seen the answer
+during training.
+
+## What is in the pack
+
+RealFix Pilot v1 holds **25 cases**, added in three batches:
+
+| batch | cases | status |
+|---|---:|---|
+| 1 | 2 | accepted |
+| 2 | 18 | provisional |
+| 3 | 5 | provisional |
+
+Provisional means CI has certified the case, but a person has not yet signed off on
+the [admission checklist](docs/case-admission-checklist.md). Do not cite provisional
+cases as finished results.
+
+**25 cases is too few to rank models.** This is a pilot that proves the method works
+end to end. It is not a leaderboard, and the numbers it produces cannot separate one
+reviewer from another with any confidence.
+
+Tests run in a pinned Docker image, `realfix-pilot:2`, which contains only pytest and
+hypothesis. Cases run offline with no network.
+
+### Cases
 
 | case id | upstream | batch | category | license |
 |---|---|---|---|---|
@@ -67,7 +87,7 @@ from the upstream commit objects by the importer, never entered by hand.
 | `packaging_name_validation_newline_001` | pypa/packaging | 3 provisional | correctness | Apache-2.0 OR BSD-2-Clause |
 | `rich_table_padding_width_001` | Textualize/rich | 3 provisional | correctness | MIT |
 
-### Held / failed candidates (not built)
+### Candidates we could not build
 
 - **Rich** `39ee57dfe70614381c3ebce34cb35cab557af2f5` — **HOLD**, reason
   `intermediate_fix_superseded_during_review`: the selected commit is an intermediate
@@ -81,59 +101,58 @@ from the upstream commit objects by the importer, never entered by hand.
   importer policy, which is out of scope. Evidence is retained under `sources/` as a
   documented failed candidate. Not auto-replaced.
 
-### Selection bias (honest limitation)
+### What this corpus is biased toward
 
-Admission favors **clean, hermetic source-plus-test commit ranges**: the importer
-requires every changed path to be classifiable as selected source or tests, and the
-test must run offline with no plugins or submodules. This systematically excludes
-fixes that bundle changelogs/news, use git submodules for test data, or need network
-or third-party pytest plugins, and biases the corpus toward small fixes in
-zero-dependency libraries. This must be reported in any eventual analysis.
+A case is only admitted if every changed file is clearly either source or test, and
+if the test runs offline with no plugins and no submodules. That rules out fixes that
+touch changelogs, that keep test data in a submodule, or that need the network.
 
-## Protocol and governance
+The result leans toward small fixes in small, dependency-free libraries. Any analysis
+built on this pack has to say so.
 
-The methodology for building and admitting cases is defined in:
-
-- [`docs/benchmark-protocol-v0.1.md`](docs/benchmark-protocol-v0.1.md) — case
-  lifecycle, RealFix case definition, historical-interval, regression, mutation, and
-  contamination policies, and stable reason codes.
-- [`docs/case-admission-checklist.md`](docs/case-admission-checklist.md) — the
-  per-case checklist a human reviewer completes before a case is accepted.
-- [`docs/provenance-and-attribution.md`](docs/provenance-and-attribution.md) —
-  license retrieval, notice preservation, and attribution policy.
-- [`docs/evaluation-plan.md`](docs/evaluation-plan.md) — the planned evaluation,
-  provisional research questions, and go/no-go signals for scaling beyond the pilot.
-
-## Layout
-
-```
-sources/realfix_pilot_v1/<case-id>/{import-spec.yaml, evidence.yaml}   # human inputs
-packs/realfix_pilot_v1/                                                # generated pack
-  manifest.yaml  pack.sha256  THIRD_PARTY_NOTICES.md  licenses/  <case dirs>
-docker/realfix_pilot/{Dockerfile, requirements.txt, build.sh}         # hermetic test image
-scripts/rebuild_pack.py                                               # deterministic rebuilder
-docs/batch-01-report.md                                               # Batch 1 results
-docs/batch-02-report.md                                               # Batch 2 (provisional)
-docs/batch-03-report.md                                               # Batch 3 (consolidated)
-requirements-harness.txt                                             # pinned Code Review Arena
-```
-
-## Reproduce
+## Reproduce it
 
 ```bash
-pip install -r requirements-harness.txt          # Code Review Arena, pinned
-docker/realfix_pilot/build.sh                     # build realfix-pilot:2
-python scripts/rebuild_pack.py                    # deterministic pack rebuild
+pip install -r requirements-harness.txt          # Code Review Arena, pinned by commit
+docker/realfix_pilot/build.sh                    # build realfix-pilot:2
+python scripts/rebuild_pack.py                   # rebuild every case from upstream
 arena validate packs/realfix_pilot_v1
 arena lint-cases packs/realfix_pilot_v1 --strict
 arena certify-pack packs/realfix_pilot_v1 --limit 25 --determinism-runs 3
 ```
 
-## Licensing
+`rebuild_pack.py` clones each upstream project and rebuilds all 25 cases from their
+pinned commits. The result is byte-for-byte identical to what is committed here, and
+CI checks that on every push. Nothing in this repository is hand-edited into place.
 
-The dataset metadata and automation in this repository will receive an explicit
-project license before any public release; it is currently unlicensed-pending.
-Vendored upstream source and tests remain under their **upstream** licenses, which
-are preserved per pack in `packs/<pack>/licenses/` and recorded in
-`packs/<pack>/THIRD_PARTY_NOTICES.md`. No third-party content is relicensed here.
-See [`LICENSES/README.md`](LICENSES/README.md).
+## Layout
+
+```
+sources/    the human inputs for each case: what to import, and the evidence for it
+packs/      the generated pack: cases, licenses, notices, manifest, checksum
+docker/     the pinned test image
+scripts/    the rebuilder
+docs/       protocol, admission checklist, batch reports, evaluation plan
+```
+
+## Documentation
+
+- [Benchmark protocol](docs/benchmark-protocol-v0.1.md) - how a case is defined,
+  built, and admitted, and what each rejection reason means
+- [Admission checklist](docs/case-admission-checklist.md) - what a person checks
+  before a case is accepted
+- [Provenance and attribution](docs/provenance-and-attribution.md) - how upstream
+  licenses and notices are preserved
+- [Evaluation plan](docs/evaluation-plan.md) - what we intend to measure, and what
+  would tell us to stop
+- Batch reports: [1](docs/batch-01-report.md), [2](docs/batch-02-report.md),
+  [3](docs/batch-03-report.md)
+
+## License
+
+The code and case metadata in this repository are MIT licensed. See [LICENSE](LICENSE).
+
+Vendored upstream source and tests keep **their own** upstream licenses. Nothing here
+is relicensed. Each pack carries the full license texts in `packs/<pack>/licenses/`
+and records what came from where in `packs/<pack>/THIRD_PARTY_NOTICES.md`. See
+[`LICENSES/README.md`](LICENSES/README.md) for the details.

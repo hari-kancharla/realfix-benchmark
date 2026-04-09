@@ -57,10 +57,9 @@ this benchmark, the case is rejected (`unsupported_license`) rather than strippe
 
 RealFix does not relicense third-party code. Vendored upstream source and tests
 remain under their upstream licenses. The benchmark's own original material (import
-specifications, evidence documents, automation, and documentation) is governed
-separately and will receive an explicit project license before any public release;
-until then it is unlicensed-pending. The two license regimes are kept distinct and
-are never merged into a single blanket statement.
+specifications, evidence documents, automation, and documentation) is MIT licensed.
+The two license regimes are kept distinct and are never merged into a single blanket
+statement.
 
 ## Attribution in papers and artifacts
 

@@ -1,26 +1,26 @@
 # Licensing
 
-## Dataset metadata and automation
+Two different things live in this repository, under two different licenses.
 
-The original dataset metadata and automation in this repository (import
-specifications, evidence documents, the rebuild script, CI, and documentation) will
-receive an explicit project license **before any public release**. Until then it is
-unlicensed-pending and should be treated as all-rights-reserved by the author.
+## What we wrote
 
-## Vendored third-party source and tests
+The import specifications, evidence documents, rebuild script, CI, and documentation
+are **MIT licensed**. See [LICENSE](../LICENSE) at the repository root.
 
-This repository does **not** apply one blanket license to vendored third-party
-source code. Each benchmark pack vendors source and test files from upstream
-projects, and those files remain under **their upstream licenses**, exactly as in
-effect at the pinned commits used to build the pack.
+## What we vendored
 
-- Each pack carries its own exact notices and license texts under
-  `packs/<pack>/licenses/`.
-- Each pack records, per case, the upstream project, repository, pinned commits,
-  applicable license files, and the files it includes, in
-  `packs/<pack>/THIRD_PARTY_NOTICES.md`.
-- The original per-file copyright and SPDX notices in the vendored files are
-  preserved as-is.
+Each case ships source and test files copied from an upstream project. Those files
+stay under **their own upstream licenses**, exactly as they stood at the commit the
+case was built from. We do not relicense them, and we do not put one blanket license
+over them.
 
-**No third-party content is relicensed by this repository.** The notices are a
-redistribution record, not legal advice.
+For every pack:
+
+- The full upstream license texts are in `packs/<pack>/licenses/`.
+- `packs/<pack>/THIRD_PARTY_NOTICES.md` records, per case, the upstream project, its
+  repository, the pinned commits, which license files apply, and what was included.
+- Per-file copyright headers and SPDX identifiers in the vendored files are left
+  exactly as they were.
+
+The notices are a record of what was redistributed and under what terms. They are not
+legal advice.
