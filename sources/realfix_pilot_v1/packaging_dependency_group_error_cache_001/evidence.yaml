@@ -6,51 +6,54 @@ buggy_commit: e64c20eb7a854c72710d4c962bc8a95f343230e6
 fixed_commit: 349abfad0688f42eb835ed8a10380d6cbf6940e7
 buggy_tree: 0cf0ce6f88e95e09d051bacce30aadabc29802d5
 fixed_tree: 625044769ff64a2691f096443836e3bad5210727
-fixed_date: "2026-06-16"
+fixed_date: '2026-06-16'
 issue_url: https://github.com/pypa/packaging/issues/1239
 pull_request_url: https://github.com/pypa/packaging/pull/1248
 changed_paths:
-  - src/packaging/dependency_groups.py
-  - tests/test_dependency_groups.py
-source_selectors: [src/packaging]
+- src/packaging/dependency_groups.py
+- tests/test_dependency_groups.py
+source_selectors:
+- src/packaging
 tests_root: tests
 regression_test_path: tests/test_dependency_groups.py
 regression_test_function: test_malformed_group_entries_are_not_cached_on_resolver_instance
-defect_evidence: >
-  PR #1248 ("Fix dependency group malformed parse caching"), which references issue
-  #1239, reports that resolving a malformed dependency group stored the parsed result
-  on the resolver and returned it again on later lookups, so repeated resolutions kept
-  returning the broken result instead of re-reporting the error, and that a non-string
-  include-group value was accepted instead of rejected. The fix rejects non-string
-  include values and refrains from storing parsed groups when errors were collected.
+defect_evidence: 'PR #1248 ("Fix dependency group malformed parse caching"), which references
+  issue #1239, reports that resolving a malformed dependency group stored the parsed result on
+  the resolver and returned it again on later lookups, so repeated resolutions kept returning
+  the broken result instead of re-reporting the error, and that a non-string include-group value
+  was accepted instead of rejected. The fix rejects non-string include values and refrains from
+  storing parsed groups when errors were collected.
+
+  '
 license:
   spdx: Apache-2.0 OR BSD-2-Clause
   files:
-    - path: LICENSE
-      blob: 6f62d44e4ef733c0e713afcd2371fed7f2b3de67
-      note: dual-license selection notice
-    - path: LICENSE.APACHE
-      blob: f433b1a53f5b830a205fd2df78e2b34974656c7b
-      note: Apache-2.0 text
-    - path: LICENSE.BSD
-      blob: 42ce7b75c92fb01a3f6ed17eea363f756b7da582
-      copyright: "Copyright (c) Donald Stufft and individual contributors."
+  - path: LICENSE
+    blob: 6f62d44e4ef733c0e713afcd2371fed7f2b3de67
+    note: dual-license selection notice
+  - path: LICENSE.APACHE
+    blob: f433b1a53f5b830a205fd2df78e2b34974656c7b
+    note: Apache-2.0 text
+  - path: LICENSE.BSD
+    blob: 42ce7b75c92fb01a3f6ed17eea363f756b7da582
+    copyright: Copyright (c) Donald Stufft and individual contributors.
   blobs_identical_at_both_commits: true
 test_environment:
-  python: "3.11"
-  pytest: "8.3.5"
+  python: '3.11'
+  pytest: 8.3.5
   extra_runtime_dependencies: none
   network: none
   plugins: none
   submodules: none
-contamination_analysis: >
-  Reviewer-visible surfaces expose cache/resolver/malformed vocabulary (the buggy
-  source carries a "cache of completed resolutions" comment and a _resolve_cache
-  attribute; the regression test name contains cached/resolver/malformed). Ground
-  truth paraphrases the defect ("error-state reuse across lookups", "non-string")
-  and is checked by strict contamination lint.
-mutation_prospect: >
-  Moderate. The fix adds an isinstance guard, an error branch, and a conditional that
-  skips storing the result when errors were collected, giving relational/conditional/
-  return mutants the regression test can reject.
+contamination_analysis: 'Reviewer-visible surfaces expose cache/resolver/malformed vocabulary
+  (the buggy source carries a "cache of completed resolutions" comment and a _resolve_cache attribute;
+  the regression test name contains cached/resolver/malformed). Ground truth paraphrases the defect
+  ("error-state reuse across lookups", "non-string") and is checked by strict contamination lint.
+
+  '
+mutation_prospect: 'Moderate. The fix adds an isinstance guard, an error branch, and a conditional
+  that skips storing the result when errors were collected, giving relational/conditional/ return
+  mutants the regression test can reject. Measured on realfix-pilot:2 in this repository''s CI:
+  100% kill on 7 mutants, deterministic across 3 runs, baseline fails and reference passes, verdict
+  VERIFIED.'
 build_batch_status: batch-01 accepted

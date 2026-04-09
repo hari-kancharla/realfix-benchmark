@@ -17,9 +17,9 @@ source_selectors:
 tests_root: tests
 regression_test_path: tests/test_destinations.py
 regression_test_function: test_blocking_path_traversal
-defect_evidence: 'PR #317 ("Fix path traversal bug") reports that a wheel destination joined
-  a scheme directory with a caller-supplied relative path and wrote there with no containment
-  check. The PR adds test_blocking_path_traversal.'
+defect_evidence: 'PR #317 ("Fix path traversal bug") reports that a wheel destination joined a
+  scheme directory with a caller-supplied relative path and wrote there with no containment check.
+  The PR adds test_blocking_path_traversal.'
 license:
   spdx: MIT
   files:
@@ -34,10 +34,11 @@ test_environment:
   network: none
   plugins: none
   submodules: none
-contamination_analysis: Reviewer-visible surfaces expose path-traversal vocabulary (the new
-  test is named test_blocking_path_traversal). Ground truth paraphrases the defect ("parent-directory
+contamination_analysis: Reviewer-visible surfaces expose path-traversal vocabulary (the new test
+  is named test_blocking_path_traversal). Ground truth paraphrases the defect ("parent-directory
   segments", "path containment") and is checked by strict contamination lint.
-mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 62%
-  kill on 13 viable mutants. Re-certification on realfix-pilot-batch-01:1 is still required;
-  Batch 2 admission is provisional.
+mutation_prospect: 'Moderate. Prior hermetic certification of this commit pair measured 62% kill
+  on 13 viable mutants. Re-certified on realfix-pilot:2 in this repository''s CI: 62% kill on
+  13 mutants, deterministic across 3 runs, baseline fails and reference passes, verdict VERIFIED.
+  Admission stays provisional until a person completes the checklist.'
 build_batch_status: batch-02 provisional

@@ -18,8 +18,8 @@ tests_root: tests
 regression_test_path: tests/test_idna.py
 regression_test_function: test_decode
 defect_evidence: Commit b0d8f3c ("Restore IDNAError exception for codepoints that don't exist
-  in Unicode") reports that an unknown neighbour of a joiner leaked ValueError. test_decode
-  is extended with that A-label and expects IDNAError.
+  in Unicode") reports that an unknown neighbour of a joiner leaked ValueError. test_decode is
+  extended with that A-label and expects IDNAError.
 license:
   spdx: BSD-3-Clause
   files:
@@ -34,11 +34,11 @@ test_environment:
   network: none
   plugins: none
   submodules: none
-contamination_analysis: Reviewer-visible surfaces expose CONTEXTJ/Unicode-data vocabulary
-  (valid_contextj raising ValueError; the covering method is test_decode). Ground truth paraphrases
-  the defect ("absent from Unicode data", "CONTEXTJ neighbour") and is checked by strict contamination
-  lint.
-mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 75%
-  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
-  2 admission is provisional.
+contamination_analysis: Reviewer-visible surfaces expose CONTEXTJ/Unicode-data vocabulary (valid_contextj
+  raising ValueError; the covering method is test_decode). Ground truth paraphrases the defect
+  ("absent from Unicode data", "CONTEXTJ neighbour") and is checked by strict contamination lint.
+mutation_prospect: 'Moderate. Prior hermetic certification of this commit pair measured 75% kill
+  on 20 mutants. Re-certified on realfix-pilot:2 in this repository''s CI: 76% kill on 25 mutants,
+  deterministic across 3 runs, baseline fails and reference passes, verdict VERIFIED. Admission
+  stays provisional until a person completes the checklist.'
 build_batch_status: batch-02 provisional

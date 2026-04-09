@@ -6,41 +6,45 @@ buggy_commit: e4d2a4a2a97246a73856754b2c4866d7f41d4875
 fixed_commit: 71b46b06fb48abcd2f7a26d74c148a650d340386
 buggy_tree: 1081ad92ff6ff7eed4a85cf48a988bb3f5c4ea64
 fixed_tree: 2806161a08e038aee3e636ce2bc53a8a9e34cfc6
-fixed_date: "2026-03-31"
+fixed_date: '2026-03-31'
 issue_url: https://github.com/more-itertools/more-itertools/issues/1057
 pull_request_url: https://github.com/more-itertools/more-itertools/pull/1139
 changed_paths:
-  - more_itertools/more.py
-  - tests/test_more.py
-source_selectors: [more_itertools]
+- more_itertools/more.py
+- tests/test_more.py
+source_selectors:
+- more_itertools
 tests_root: tests
 regression_test_path: tests/test_more.py
 regression_test_function: test_invalid_n
-defect_evidence: >
-  Issue #1057 ("Why does windowed(xs, 0) return a range of 1 empty tuple?") shows that
-  windowed() with size zero yielded a single empty tuple rather than rejecting the
-  size. PR #1139 (authored by Raymond Hettinger) changes the guard so a size of zero
-  is rejected together with negative sizes.
+defect_evidence: 'Issue #1057 ("Why does windowed(xs, 0) return a range of 1 empty tuple?") shows
+  that windowed() with size zero yielded a single empty tuple rather than rejecting the size.
+  PR #1139 (authored by Raymond Hettinger) changes the guard so a size of zero is rejected together
+  with negative sizes.
+
+  '
 license:
   spdx: MIT
   files:
-    - path: LICENSE
-      blob: 0a523bece3e50519653c4d7a38399baa487fefa1
-      copyright: "Copyright (c) 2012 Erik Rose"
+  - path: LICENSE
+    blob: 0a523bece3e50519653c4d7a38399baa487fefa1
+    copyright: Copyright (c) 2012 Erik Rose
   blobs_identical_at_both_commits: true
 test_environment:
-  python: "3.11"
-  pytest: "8.3.5"
+  python: '3.11'
+  pytest: 8.3.5
   extra_runtime_dependencies: none
   network: none
   plugins: none
   submodules: none
-contamination_analysis: >
-  Reviewer-visible surfaces expose invalid-size vocabulary. The regression test name
-  is generic (test_invalid_n). Ground truth paraphrases the defect ("zero-length
-  window", "argument domain check") and is checked by strict contamination lint.
-mutation_prospect: >
-  Low to moderate. The fix replaces a two-branch size guard with a single comparison
-  that also rejects zero; relational mutants on that comparison are rejected at the
-  zero boundary, but the changed region is small so the viable-mutant count may be low.
+contamination_analysis: 'Reviewer-visible surfaces expose invalid-size vocabulary. The regression
+  test name is generic (test_invalid_n). Ground truth paraphrases the defect ("zero-length window",
+  "argument domain check") and is checked by strict contamination lint.
+
+  '
+mutation_prospect: 'Low to moderate. The fix replaces a two-branch size guard with a single comparison
+  that also rejects zero; relational mutants on that comparison are rejected at the zero boundary,
+  but the changed region is small so the viable-mutant count may be low. Measured on realfix-pilot:2
+  in this repository''s CI: 100% kill on 25 mutants, deterministic across 3 runs, baseline fails
+  and reference passes, verdict VERIFIED.'
 build_batch_status: batch-01 accepted

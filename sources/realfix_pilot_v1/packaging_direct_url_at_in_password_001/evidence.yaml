@@ -18,9 +18,8 @@ tests_root: tests
 regression_test_path: tests/test_direct_url.py
 regression_test_function: test_to_dict_strip_url_with_at_in_password
 defect_evidence: 'PR #1218 ("DirectUrl auth stripping with @ in passwords") reports that userinfo
-  stripping split on the first ''@'', so a password containing that character leaked into
-  DirectUrl.to_dict. The added test uses a password that contains ''@'' and checks the published
-  URL.'
+  stripping split on the first ''@'', so a password containing that character leaked into DirectUrl.to_dict.
+  The added test uses a password that contains ''@'' and checks the published URL.'
 license:
   spdx: Apache-2.0 OR BSD-2-Clause
   files:
@@ -41,11 +40,11 @@ test_environment:
   network: none
   plugins: none
   submodules: none
-contamination_analysis: Reviewer-visible surfaces expose auth-stripping vocabulary (function
-  name _strip_auth_from_netloc; the new test name contains strip/url/password). Ground truth
-  paraphrases the defect ("first at-sign", "userinfo stripping") and is checked by strict
-  contamination lint.
-mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 60%
-  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
-  2 admission is provisional.
+contamination_analysis: Reviewer-visible surfaces expose auth-stripping vocabulary (function name
+  _strip_auth_from_netloc; the new test name contains strip/url/password). Ground truth paraphrases
+  the defect ("first at-sign", "userinfo stripping") and is checked by strict contamination lint.
+mutation_prospect: 'Moderate. Prior hermetic certification of this commit pair measured 60% kill
+  on 20 mutants. Re-certified on realfix-pilot:2 in this repository''s CI: 64% kill on 25 mutants,
+  deterministic across 3 runs, baseline fails and reference passes, verdict VERIFIED. Admission
+  stays provisional until a person completes the checklist.'
 build_batch_status: batch-02 provisional

@@ -17,8 +17,8 @@ source_selectors:
 tests_root: tests
 regression_test_path: tests/test_metadata.py
 regression_test_function: test_invalid_license_expression
-defect_evidence: 'PR #879 ("Detect invalid license expressions containing ()") shows that
-  the empty group ''()'' was accepted as a license expression. The PR extends test_invalid_license_expression
+defect_evidence: 'PR #879 ("Detect invalid license expressions containing ()") shows that the
+  empty group ''()'' was accepted as a license expression. The PR extends test_invalid_license_expression
   with empty-parenthesis cases.'
 license:
   spdx: Apache-2.0 OR BSD-2-Clause
@@ -43,7 +43,8 @@ test_environment:
 contamination_analysis: Reviewer-visible surfaces expose license-expression vocabulary (canonicalize_license_expression;
   added comments say "Empty parenthesis"). Ground truth paraphrases the defect ("empty group",
   "SPDX grammar") and is checked by strict contamination lint.
-mutation_prospect: High. Prior hermetic certification of this commit pair measured 100% kill
-  on 16 viable mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
-  2 admission is provisional.
+mutation_prospect: 'High. Prior hermetic certification of this commit pair measured 100% kill
+  on 16 viable mutants. Re-certified on realfix-pilot:2 in this repository''s CI: 100% kill on
+  16 mutants, deterministic across 3 runs, baseline fails and reference passes, verdict VERIFIED.
+  Admission stays provisional until a person completes the checklist.'
 build_batch_status: batch-02 provisional

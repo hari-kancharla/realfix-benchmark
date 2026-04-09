@@ -1,7 +1,7 @@
 schema_version: "1"
 pack:
   version: "1"
-  name: realfix_seed_v0
+  name: realfix_pilot_v1
 case:
   id: attrs_frozen_error_message_001
   title: FrozenInstanceError loses its message in tracebacks

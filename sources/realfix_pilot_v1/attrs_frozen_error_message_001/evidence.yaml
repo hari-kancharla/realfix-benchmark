@@ -67,6 +67,7 @@ test_environment:
 contamination_analysis: Reviewer-visible surfaces expose the assertion `e.value.msg == e.value.args[0]`
   inside the strengthened test_frozen_instance. Ground truth paraphrases as "exception constructor"
   and "message propagation" rather than naming the changed call. Strict contamination lint passes.
-mutation_prospect: Zero viable mutants were produced at limit 25, so no kill rate is measured.
-  Recorded explicitly as zero mutation evidence, not as a 100% kill rate.
+mutation_prospect: Zero viable mutants were produced at limit 25 on realfix-pilot:2 in this repository's
+  CI, so no kill rate is measured. Recorded explicitly as zero mutation evidence, not as a 100%
+  kill rate. Baseline fails and reference passes, deterministic across 3 runs, verdict VERIFIED.
 build_batch_status: batch-03 provisional

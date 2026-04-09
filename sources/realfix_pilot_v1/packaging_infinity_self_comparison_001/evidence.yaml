@@ -18,9 +18,9 @@ tests_root: tests
 regression_test_path: tests/test_structures.py
 regression_test_function: test_infinity_self_comparison
 defect_evidence: 'PR #1093 ("Fix incorrect self-comparison for InfinityType and NegativeInfinityType")
-  reports that the version sentinels compared as unordered against themselves: Infinity <
-  Infinity was true and Infinity <= Infinity was false. The PR adds regression tests that
-  require a sentinel to compare equal-or-ordered to itself.'
+  reports that the version sentinels compared as unordered against themselves: Infinity < Infinity
+  was true and Infinity <= Infinity was false. The PR adds regression tests that require a sentinel
+  to compare equal-or-ordered to itself.'
 license:
   spdx: Apache-2.0 OR BSD-2-Clause
   files:
@@ -41,12 +41,13 @@ test_environment:
   network: none
   plugins: none
   submodules: none
-contamination_analysis: Reviewer-visible surfaces expose InfinityType comparison vocabulary
-  (the buggy methods always returned True/False without an identity guard; the new tests are
-  named for self-comparison). Ground truth paraphrases the defect ("sentinel identity", "same
-  sentinel") and is checked by strict contamination lint.
-mutation_prospect: High. Prior hermetic certification of this commit pair (Python 3.11, pytest,
-  mutation limit 20) measured 100% kill on 10 viable mutants. That run used a different image
-  tag than realfix-pilot-batch-01:1; Batch 2 admission is provisional until this pack's pinned
-  image re-certifies.
+contamination_analysis: Reviewer-visible surfaces expose InfinityType comparison vocabulary (the
+  buggy methods always returned True/False without an identity guard; the new tests are named
+  for self-comparison). Ground truth paraphrases the defect ("sentinel identity", "same sentinel")
+  and is checked by strict contamination lint.
+mutation_prospect: 'High. Prior hermetic certification of this commit pair (Python 3.11, pytest,
+  mutation limit 20) measured 100% kill on 10 viable mutants. Re-certified on realfix-pilot:2
+  in this repository''s CI: 100% kill on 10 mutants, deterministic across 3 runs, baseline fails
+  and reference passes, verdict VERIFIED. Admission stays provisional until a person completes
+  the checklist.'
 build_batch_status: batch-02 provisional

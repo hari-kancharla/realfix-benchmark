@@ -17,8 +17,8 @@ source_selectors:
 tests_root: tests
 regression_test_path: tests/test_misc.py
 regression_test_function: test_incorrect_load
-defect_evidence: 'PR #175 ("Raise a friendly TypeError for wrong file mode") reports that
-  tomli.load on a text-mode file raised AttributeError from str.decode. The PR adds test_incorrect_load.'
+defect_evidence: 'PR #175 ("Raise a friendly TypeError for wrong file mode") reports that tomli.load
+  on a text-mode file raised AttributeError from str.decode. The PR adds test_incorrect_load.'
 license:
   spdx: MIT
   files:
@@ -34,10 +34,11 @@ test_environment:
   plugins: none
   submodules: none
 contamination_analysis: Reviewer-visible surfaces expose file-mode vocabulary (fp.read().decode
-  in load; the new test is named test_incorrect_load). Ground truth paraphrases the defect
-  ("text-mode file", "text handle") and is checked by strict contamination lint.
-mutation_prospect: Moderate. Prior hermetic certification of this commit pair measured 65%
-  kill on 20 mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
-  2 admission is provisional. The vendored tests/ tree is large; the executed command is tests/test_misc.py
-  only.
+  in load; the new test is named test_incorrect_load). Ground truth paraphrases the defect ("text-mode
+  file", "text handle") and is checked by strict contamination lint.
+mutation_prospect: 'Moderate. Prior hermetic certification of this commit pair measured 65% kill
+  on 20 mutants. Re-certified on realfix-pilot:2 in this repository''s CI: 60% kill on 25 mutants,
+  deterministic across 3 runs, baseline fails and reference passes, verdict VERIFIED. Admission
+  stays provisional until a person completes the checklist. The vendored tests/ tree is large;
+  the executed command is tests/test_misc.py only.'
 build_batch_status: batch-02 provisional

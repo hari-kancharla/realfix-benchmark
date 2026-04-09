@@ -40,11 +40,11 @@ test_environment:
   network: none
   plugins: none
   submodules: none
-contamination_analysis: Reviewer-visible surfaces expose filename-parser vocabulary (helpers
-  parse_wheel_filename / parse_sdist_filename; added comments say "Empty project name"). Ground
-  truth paraphrases the defect ("nameless distribution", "empty name") and is checked by strict
-  contamination lint.
-mutation_prospect: High. Prior hermetic certification of this commit pair measured 100% kill
-  on 13 viable mutants. Re-certification on realfix-pilot-batch-01:1 is still required; Batch
-  2 admission is provisional.
+contamination_analysis: Reviewer-visible surfaces expose filename-parser vocabulary (helpers parse_wheel_filename
+  / parse_sdist_filename; added comments say "Empty project name"). Ground truth paraphrases the
+  defect ("nameless distribution", "empty name") and is checked by strict contamination lint.
+mutation_prospect: 'High. Prior hermetic certification of this commit pair measured 100% kill
+  on 13 viable mutants. Re-certified on realfix-pilot:2 in this repository''s CI: 100% kill on
+  13 mutants, deterministic across 3 runs, baseline fails and reference passes, verdict VERIFIED.
+  Admission stays provisional until a person completes the checklist.'
 build_batch_status: batch-02 provisional

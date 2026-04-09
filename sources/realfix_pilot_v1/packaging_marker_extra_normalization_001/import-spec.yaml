@@ -1,7 +1,7 @@
 schema_version: "1"
 pack:
   version: "1"
-  name: realfix_seed_v0
+  name: realfix_pilot_v1
 case:
   id: packaging_marker_extra_normalization_001
   title: Only the first environment marker has its extra normalized
