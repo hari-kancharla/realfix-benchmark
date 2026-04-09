@@ -42,13 +42,17 @@ RealFix Pilot v1 holds **25 cases**, added in three batches:
 
 | batch | cases | status |
 |---|---:|---|
-| 1 | 2 | accepted |
-| 2 | 18 | provisional |
-| 3 | 5 | provisional |
+| 1 | 2 | accepted / provisional |
+| 2 | 18 | accepted / provisional |
+| 3 | 5 | accepted / provisional |
 
-Provisional means CI has certified the case, but a person has not yet signed off on
-the [admission checklist](docs/case-admission-checklist.md). Do not cite provisional
-cases as finished results.
+Per-case checklists, with the measured evidence behind each section, are in
+[`docs/admission/`](docs/admission/).
+
+Every case is **provisionally accepted**: CI certifies it, and the builder has signed
+its [admission checklist](docs/admission/). None is paper-grade, because that needs a
+second reviewer who is not the builder, and no second reviewer has looked at these
+cases. Do not cite provisional cases as finished results.
 
 **25 cases is too few to rank models.** This is a pilot that proves the method works
 end to end. It is not a leaderboard, and the numbers it produces cannot separate one

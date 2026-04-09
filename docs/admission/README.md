@@ -1,24 +1,41 @@
 # Admission checklists
 
-One file per case, pre-filled with everything that can be measured.
+One completed checklist per case, following
+[`../case-admission-checklist.md`](../case-admission-checklist.md).
 
-Each file follows [`../case-admission-checklist.md`](../case-admission-checklist.md).
 The `>` quoted blocks hold facts derived from the upstream Git objects and from this
 repository's CI: tree SHAs, changed paths, the regression test, the certification
-verdict, the mutation result, and the license blob SHAs.
+verdict, the mutation result, and the license blob SHAs. The builder has reviewed
+those facts and signed each section.
 
-**The tick boxes and initials are deliberately blank.** These files record what was
-measured, not that anyone reviewed it. The protocol is explicit that automation cannot
-sign a section, so nothing here is signed.
+**Every case is `accepted / provisional`.** None is paper-grade. The
+independent-reviewer line is unsigned in all 25 files, because the protocol requires a
+second real person other than the builder and no second reviewer has looked at these
+cases. That line stays blank until one does.
 
-## How to use them
+## The two judgment labels
 
-Read a file, satisfy yourself the measured facts are right, tick the boxes and initial
-the sections. Two labels are judgments no measurement can supply, and both are marked
-in the file: task-surface leakage risk, and historical exposure risk.
+No measurement supplies these, so both are recorded with the reasoning behind them.
 
-Signing every section as the builder gives a case **provisional** acceptance.
-**Paper-grade** additionally needs a second real person, other than the builder, to sign
-the provenance, historical evidence, regression, leakage, exposure and licensing
-sections. Until that happens the case stays provisional, which is what the pack
-currently claims.
+**Task-surface leakage.** `medium` where an upstream test name echoes a ground-truth
+concept, `low` otherwise. Two cases are medium:
+`click_shared_default_precedence_001` (upstream's `test_shared_param_prefers_first_default`
+against the concept "order-sensitive default") and `rich_table_padding_width_001`
+(upstream's `test_padding_width` against "cell padding width"). Both names are
+upstream's own and were not renamed to satisfy the contamination lint.
+
+**Historical exposure**, from the date the upstream fix became public:
+
+| Fix date | Label | Cases |
+|---|---|---:|
+| before 2023-01-01 | high | 7 |
+| 2023-01-01 to 2025-08-31 | medium | 4 |
+| 2025-09-01 or later | low | 14 |
+
+A label is a statement about dates, not proof that a model did or did not see the fix.
+
+## Getting a case to paper-grade
+
+A second person, who is not the builder and is not automation, signs the provenance,
+historical evidence, regression, leakage, exposure and licensing sections. Until then
+the case stays provisional, which is what the pack claims.
