@@ -8,10 +8,9 @@ repository's CI: tree SHAs, changed paths, the regression test, the certificatio
 verdict, the mutation result, and the license blob SHAs. The builder has reviewed
 those facts and signed each section.
 
-**Every case is `accepted / provisional`.** None is paper-grade. The
-independent-reviewer line is unsigned in all 25 files, because the protocol requires a
-second real person other than the builder and no second reviewer has looked at these
-cases. That line stays blank until one does.
+All 25 cases are **accepted** at the `provisional` level. Reaching `paper-grade`
+additionally requires a second reviewer who is not the builder, so the
+independent-reviewer line is left for that person to sign.
 
 ## The two judgment labels
 
