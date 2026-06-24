@@ -1,0 +1,92 @@
+name: RealFix Pilot Batch 1 CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  batch-01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      HARNESS_COMMIT: 3e77aa1a13fde271cce02b4b716dd74add1e547c
+    steps:
+      - name: Checkout dataset repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Code Review Arena pinned to the merge commit
+        run: |
+          grep -q "$HARNESS_COMMIT" requirements-harness.txt \
+            || { echo "requirements-harness.txt is not pinned to $HARNESS_COMMIT"; exit 1; }
+          python -m pip install --upgrade pip
+          pip install -r requirements-harness.txt
+
+      - name: Verify harness is importable and pinned
+        run: |
+          python -c "import arena, arena.benchmark.pack_hash; print('arena import OK')"
+          arena --help >/dev/null
+          pip show code-review-arena | grep -i '^Name'
+
+      - name: Build the Batch 1 hermetic test image
+        run: docker build --tag realfix-pilot-batch-01:1 docker/realfix_pilot
+
+      - name: Validate the pack
+        run: arena validate packs/realfix_pilot_v1
+
+      - name: Strict contamination lint
+        run: arena lint-cases packs/realfix_pilot_v1 --strict
+
+      - name: Verify pack.sha256
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from arena.benchmark.pack_hash import pack_checksum, stored_checksum
+          p = Path("packs/realfix_pilot_v1")
+          got, want = pack_checksum(p), stored_checksum(p)
+          assert got == want, f"checksum mismatch: {got} != {want}"
+          print("pack.sha256 OK:", got)
+          PY
+
+      - name: Certify the pack through Docker (mutation limit 20, determinism 3)
+        run: arena certify-pack packs/realfix_pilot_v1 --limit 20 --determinism-runs 3 --strict verified
+
+      - name: Controls
+        run: |
+          python - <<'PY'
+          import tempfile
+          from pathlib import Path
+          from arena.benchmark.benchmark_runner import run_benchmark
+          from arena.core.registry import create_reviewer
+          pack = Path("packs/realfix_pilot_v1")
+          expect = {
+              "reference-patch": "all",
+              "control:bad_patch": 0,
+              "control:malformed_patch": 0,
+              "control:detects_no_patch": 0,
+              "control:keyword_gamer": 0,
+          }
+          failures = []
+          with tempfile.TemporaryDirectory() as tmp:
+              for spec, want in expect.items():
+                  run = run_benchmark(pack, create_reviewer(spec), mode="full",
+                                      persist=False, output_dir=Path(tmp) / spec.replace(":", "_"))
+                  cr = run.case_results
+                  v = sum(1 for c in cr if getattr(c, "patch_applied", False) and getattr(c, "tests_passed", False))
+                  target = len(cr) if want == "all" else want
+                  print(f"{spec}: validated_repair={v}/{len(cr)} (want {target})")
+                  if v != target:
+                      failures.append(spec)
+          assert not failures, f"control expectations failed: {failures}"
+          PY
+
+      - name: Deterministic rebuild check
+        run: |
+          python scripts/rebuild_batch_01.py
+          git diff --exit-code -- packs/realfix_pilot_v1 \
+            || { echo "rebuild was not byte-identical"; exit 1; }
