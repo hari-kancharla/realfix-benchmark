@@ -1,0 +1,4 @@
+# Code Review Arena harness, pinned to the merged release commit (PR #22 merge).
+# The dataset repository uses the harness only as an external, pinned tool; it does
+# not vendor or modify harness code.
+code-review-arena @ git+https://github.com/harihkk/code-review-arena@3e77aa1a13fde271cce02b4b716dd74add1e547c
