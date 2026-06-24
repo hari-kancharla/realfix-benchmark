@@ -31,7 +31,7 @@ jobs:
         run: |
           python -c "import arena, arena.benchmark.pack_hash; print('arena import OK')"
           arena --help >/dev/null
-          pip show code-review-arena | grep -i '^Name'
+          pip show codereview-arena | grep -i '^Name'
 
       - name: Build the Batch 1 hermetic test image
         run: docker build --tag realfix-pilot-batch-01:1 docker/realfix_pilot
