@@ -1,0 +1,65 @@
+category: input-validation
+description: 'windowed() rejected only negative sizes; a size of zero fell through
+  to a branch that yielded a single empty tuple and returned, instead of being rejected
+  as an invalid window size.
+
+  '
+execution:
+  docker_image: realfix-pilot-batch-01:1
+  run_static_analysis: false
+  run_tests: true
+  static_analysis_command: null
+  test_command: pytest tests/test_more.py -q
+  timeout_seconds: 120
+ground_truth:
+  acceptable_findings: []
+  bugs:
+  - acceptable_fix_keywords:
+    - raise on zero
+    - positive size
+    concepts:
+    - zero-length window
+    - argument domain check
+    files:
+    - line_ranges:
+      - end: 1052
+        start: 1048
+      path: more_itertools/more.py
+    id: bug-1
+    must_mention:
+    - nonpositive size
+    summary: 'The size guard rejected only negative values and special-cased a size
+      of zero by yielding one empty tuple and returning, so a zero size produced output
+      rather than raising. A size of zero must be rejected like a negative size.
+
+      '
+id: more_itertools_windowed_zero_size_001
+input:
+  after_dir: after
+  before_dir: before
+  diff: pr.diff
+  tests_dir: tests
+metrics:
+  beta: 1.0
+scoring:
+  false_positive_penalty: 5.0
+  false_positive_penalty_cap: 15.0
+  invalid_json_penalty: 20.0
+  weights:
+    concept_match: 35.0
+    file_match: 20.0
+    fix_quality: 15.0
+    line_overlap: 15.0
+    no_false_positives: 5.0
+    severity_match: 10.0
+severity: medium
+stack:
+- python
+title: windowed() accepts a zero size and yields one empty tuple
+validation:
+  detection_requirement: all_bugs
+  max_false_positives: 0
+  patch_required: true
+  protected_paths: []
+  structural_validators: []
+  tests_required: true
