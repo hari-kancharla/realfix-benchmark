@@ -1,0 +1,41 @@
+schema_version: "1"
+pack:
+  version: "1"
+  name: realfix_pilot_v1
+case:
+  id: packaging_dependency_group_error_cache_001
+  title: Failed dependency-group parse is stored and replayed on later lookups
+  category: state-management
+  severity: medium
+  stack: [python]
+  description: >
+    Resolving a dependency group stored the parsed result before checking whether
+    parsing had recorded errors, so a later lookup of the same group returned the
+    stored broken result instead of re-reporting the failure. A non-string include
+    entry was also accepted instead of being rejected.
+source_paths: [src/packaging]
+tests_root: tests
+ground_truth:
+  bugs:
+    - id: bug-1
+      summary: >
+        The group resolver assigned tuple(elements) into its per-group store and
+        returned it unconditionally, even when parsing had collected errors, so the
+        broken result was retained and replayed on repeated lookups; and an include
+        entry that was not a string was appended rather than rejected.
+      files:
+        - path: src/packaging/dependency_groups.py
+          line_ranges:
+            - start: 255
+              end: 261
+      concepts: ["error-state reuse across lookups", "include entry type validation"]
+      must_mention: ["non-string"]
+      acceptable_fix_keywords: ["reject non-string", "discard on error"]
+execution:
+  run_tests: true
+  test_command: "pytest tests/test_dependency_groups.py -q"
+  timeout_seconds: 120
+  docker_image: realfix-pilot-batch-01:1
+validation:
+  patch_required: true
+  tests_required: true
