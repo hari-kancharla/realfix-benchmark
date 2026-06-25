@@ -122,10 +122,14 @@ reason code (the recognized codes are listed at the end).
 ### accepted
 - Entry: the case is part of a built, certified pack and has cleared admission
   review (see `case-admission-checklist.md`).
-- Required evidence: a completed admission checklist with independent sign-off and
-  the deterministic-rebuild and control results.
-- Permitted actions: include the case in a batch pack and report it.
-- Exit: `deprecated` if later invalidated; otherwise it remains accepted.
+- Required evidence: a completed admission checklist, the deterministic-rebuild and
+  control results, and a recorded acceptance level (provisional or paper-grade; see
+  "Acceptance levels").
+- Permitted actions: include the case in a batch pack and report it at no higher
+  than its recorded acceptance level.
+- Exit: `deprecated` if later invalidated; otherwise it remains accepted at its
+  recorded level (a provisional case may later be promoted to paper-grade once an
+  independent review is completed).
 
 ### hold
 - Entry: reachable when a candidate is otherwise plausible but a specific, named
@@ -223,30 +227,122 @@ raise a kill rate. When the test scope is broadened (per the regression policy) 
 that broadening changes the mutation result, the change in scope and its effect on
 the mutation numbers are documented in the case evidence.
 
-## Contamination policy
+## Contamination: two distinct validity risks
 
-Three kinds of information are kept separate:
+Contamination is two separate threats. They are assessed and reported separately and
+must never be combined into a single contamination score.
+
+### Task-surface leakage
+
+Task-surface leakage is information that gives away the defect or the expected fix
+through what the case itself exposes: the synthetic diff, source comments and
+docstrings, test names, test bodies, file names, the scoring vocabulary, and any
+wording derived from the patch.
+
+Three kinds of information are kept separate to control it:
 
 - Reviewer-visible information: the synthetic `pr.diff`, the `after/` source under
-  review, and the test names the reviewer can see.
-- Builder-only evidence: the upstream issue and PR discussion, the maintainer
-  repair, and the analysis used to write the case. This is not shown to a reviewer.
+  review (including its comments and docstrings), and the test names and bodies the
+  reviewer can see.
+- Builder-only evidence: the upstream issue and PR discussion, the maintainer repair,
+  and the analysis used to write the case. This is not shown to a reviewer.
 - Scoring-only ground truth: the `must_mention` terms, concepts, and acceptable-fix
   keywords used to score a review. These must be derivable from the builder evidence
   without leaking into reviewer-visible surfaces.
 
 Before acceptance, ground-truth vocabulary is checked against bug vocabulary in test
-names, explanatory comments and docstrings in the reviewed source, wording derived
-from the patch, and language taken directly from the issue or PR. Paraphrasing the
-defect in scoring fields is acceptable; copying the answer's distinctive terms into
-those fields is prohibited.
+names and bodies, explanatory comments and docstrings in the reviewed source, file
+names, wording derived from the patch, and language taken directly from the issue or
+PR. Paraphrasing the defect in scoring fields is acceptable; copying the answer's
+distinctive terms into those fields is prohibited. The absence of a particular keyword
+does not by itself prove a case is leak-free, so each case records a task-surface
+leakage risk of low, medium, or high with a short justification, in addition to
+passing the automated strict lint. Legitimate upstream comments and regression tests
+are never deleted or rewritten to make a check pass; if credible, leak-free ground
+truth cannot be written, the candidate is rejected (`contamination`).
 
-The absence of a particular keyword does not by itself prove a case is
-contamination-free. Each case records a contamination risk of low, medium, or high
-with a short justification, in addition to passing the automated strict lint.
-Legitimate upstream comments and regression tests are never deleted or rewritten to
-make a contamination check pass; if credible, leak-free ground truth cannot be
-written, the candidate is rejected (`contamination`).
+### Historical exposure risk
+
+Historical exposure is the separate possibility that an evaluated model already
+encountered the case's material — the upstream repository, issue, pull request,
+regression test, fixed commit, or a previously released benchmark case — during
+pretraining, fine-tuning, retrieval, browsing, or earlier benchmark use. This is a
+property of the evaluation, not of the case text, so a clean task-surface does not
+reduce it.
+
+Each case records:
+
+- upstream fix date;
+- issue/PR public date;
+- benchmark publication date;
+- historical exposure risk: low / medium / high / unknown;
+- a short justification for that label;
+- whether the case was collected after the evaluated model version's public release;
+- whether live web or repository retrieval was enabled during the evaluation.
+
+An exposure-risk label is a judgment, not proof: it does not establish that a model
+did or did not see the case. Task-surface leakage and historical exposure are
+reported as two separate fields, never as one number.
+
+For paper-scale evaluation, a fresh temporal subset collected after the evaluated
+model or API version was released is required wherever practical. When that is not
+possible, the limitation is reported plainly; the benchmark is not described as
+decontaminated. The reason code `historical_exposure_unacceptable` is used only when a
+specific study's declared evaluation design makes a candidate unusable for that study
+(for example, a study that requires post-release collection). Older cases are not
+rejected automatically.
+
+## Acceptance levels
+
+An accepted case has one of two levels, recorded with the case.
+
+**Provisional acceptance** means the builder has completed verification (provenance,
+reproduction, classification, certification, task-surface leakage, licensing, and
+deterministic rebuild). A provisionally accepted case is usable for internal
+methodology and pipeline testing. It must not be presented as independently audited,
+paper-grade evidence.
+
+**Paper-grade acceptance** additionally requires an independent second reviewer to
+verify immutable Git provenance, issue/PR historical evidence, the
+buggy-fail/fixed-pass reproduction, the task-surface leakage analysis, the historical
+exposure assessment, and licensing and notices. The independent reviewer must be a
+real person other than the case builder. Automation and any language model (including
+Claude, ChatGPT, or any other model) do not count as the independent reviewer, and
+the builder cannot review their own case. When no independent human reviewer is
+available, the case remains provisionally accepted.
+
+The recorded final status includes the acceptance level, the builder, the independent
+reviewer (when applicable), the relevant dates, any unresolved disagreements between
+builder and reviewer, and the adjudication outcome for those disagreements.
+
+## Development and held-out cases
+
+Accepted cases are split into development cases and held-out evaluation cases, and the
+split is recorded before any evaluation begins.
+
+Development cases may be used to debug prompts, output parsing, and tool integration.
+Held-out evaluation cases must not be used for prompt tuning or reviewer-specific
+debugging. Any change to the split is recorded with its date and reason before the
+next evaluation.
+
+The twelve-case stage is a methodology pilot regardless of the split; paper-scale
+claims require a larger frozen evaluation set and independent case audit. "Held-out"
+describes researcher behavior — a case withheld from tuning — and does not assert that
+a public GitHub case is absent from any model's training data; that is governed
+separately by the historical exposure assessment.
+
+## Benchmark freeze and correction policy
+
+Each evaluation uses an immutable dataset release. A release records its semantic
+dataset version, the manifest, the complete pack checksum, the pinned harness commit,
+the Docker image identity, the case inventory with each case's accepted/provisional/
+deprecated status, the release date, and a correction log.
+
+After an evaluation against a release has begun, cases in that release are not edited
+silently. A correction is published as a new dataset version that explains the defect,
+identifies the affected results, and states whether prior results remain comparable to
+the corrected release. A deprecated case stays in the provenance records for
+traceability but is excluded from new headline results.
 
 ## Stable reason codes
 
@@ -257,4 +353,4 @@ written, the candidate is rejected (`contamination`).
 `tests_tree_contains_submodule`, `importer_rejected`, `changed_path_unclassified`,
 `semantic_change_uncovered`, `protected_path`, `repository_history_override`,
 `shallow_repository`, `contamination`, `mutation_inadequate`,
-`intermediate_fix_superseded_during_review`.
+`intermediate_fix_superseded_during_review`, `historical_exposure_unacceptable`.

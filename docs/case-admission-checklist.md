@@ -7,8 +7,17 @@ not simulate sign-off; an unchecked or unsigned section means that area has not 
 reviewed.
 
 Each section has a sign-off line. The reviewer who verifies a section initials and
-dates it. The provenance, regression, and licensing sections should be signed by a
-reviewer other than the person who originally built the case where staffing allows.
+dates it.
+
+The builder can complete every section for **provisional acceptance** (usable for
+internal methodology and pipeline testing, not as paper-grade evidence).
+**Paper-grade acceptance** additionally requires an independent second reviewer — a
+real person other than the builder — to sign the provenance, historical evidence,
+regression reproduction, task-surface leakage, historical exposure, and licensing
+sections. Automation or any language model does not count as the independent
+reviewer. When no independent human reviewer is available, the case stays
+provisionally accepted. Do not simulate sign-off; an unchecked or unsigned section
+means that area has not been reviewed.
 
 ```
 Case id: ______________________________________________
@@ -64,15 +73,26 @@ Path classification verified by: __________________  Date: __________
 
 Execution environment verified by: __________________  Date: __________
 
-## 6. Contamination
-- [ ] Ground-truth vocabulary checked against test names, comments/docstrings,
-      patch-derived wording, and issue/PR language.
+## 6. Task-surface leakage
+- [ ] Ground-truth vocabulary checked against test names and bodies,
+      comments/docstrings, file names, patch-derived wording, and issue/PR language.
 - [ ] Scoring fields paraphrase the defect rather than copying its distinctive terms.
 - [ ] Strict contamination lint passes.
-- [ ] Contamination risk recorded as low / medium / high with justification.
+- [ ] Task-surface leakage risk recorded as low / medium / high with justification.
 - [ ] No upstream comment or regression test was deleted or rewritten to pass lint.
 
-Contamination verified by: __________________  Date: __________
+Task-surface leakage verified by: __________________  Date: __________
+
+## 6b. Historical exposure
+- [ ] Upstream fix date, issue/PR public date, and benchmark publication date recorded.
+- [ ] Historical exposure risk recorded as low / medium / high / unknown with
+      justification (a label is a judgment, not proof of (non-)exposure).
+- [ ] Whether the case was collected after the evaluated model version's public
+      release recorded.
+- [ ] Whether live web or repository retrieval was enabled during evaluation recorded.
+- [ ] Recorded separately from task-surface leakage (not merged into one score).
+
+Historical exposure verified by: __________________  Date: __________
 
 ## 7. Mutation
 - [ ] Mutation run recorded with the mutation limit and the viable-mutant count.
@@ -111,7 +131,12 @@ Control behavior verified by: __________________  Date: __________
 ## 11. Final admission decision
 
 Decision (one of): accepted / hold / rejected / deprecated: ______________
+Acceptance level (if accepted): provisional / paper-grade: ______________
 Reason code (if hold/rejected/deprecated): ______________________________
-Notes: __________________________________________________________________
+Builder: __________________  Date: __________
+Independent reviewer (required for paper-grade; a real person, not the builder or any
+automation/model): __________________  Date: __________
+Unresolved builder/reviewer disagreements: ______________________________
+Adjudication outcome: ___________________________________________________
 
 Admission decision by: __________________  Date: __________
