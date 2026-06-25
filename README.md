@@ -54,6 +54,20 @@ fixes that bundle changelogs/news, use git submodules for test data, or need net
 or third-party pytest plugins, and biases the corpus toward small fixes in
 zero-dependency libraries. This must be reported in any eventual analysis.
 
+## Protocol and governance
+
+The methodology for building and admitting cases is defined in:
+
+- [`docs/benchmark-protocol-v0.1.md`](docs/benchmark-protocol-v0.1.md) — case
+  lifecycle, RealFix case definition, historical-interval, regression, mutation, and
+  contamination policies, and stable reason codes.
+- [`docs/case-admission-checklist.md`](docs/case-admission-checklist.md) — the
+  per-case checklist a human reviewer completes before a case is accepted.
+- [`docs/provenance-and-attribution.md`](docs/provenance-and-attribution.md) —
+  license retrieval, notice preservation, and attribution policy.
+- [`docs/evaluation-plan.md`](docs/evaluation-plan.md) — the planned evaluation,
+  provisional research questions, and go/no-go signals for scaling beyond the pilot.
+
 ## Layout
 
 ```
