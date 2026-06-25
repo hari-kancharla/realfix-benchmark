@@ -1,0 +1,28 @@
+diff --git a/src/packaging/dependency_groups.py b/src/packaging/dependency_groups.py
+index 28dfd2448959ab99a5393eeb1af2e51d16f1954f..66c71c9b35614cd12479e3e94158df86e5b1baf1 100644
+--- a/src/packaging/dependency_groups.py
++++ b/src/packaging/dependency_groups.py
+@@ -253,22 +253,10 @@ class DependencyGroupResolver:
+                     )
+                 else:
+                     include_group = item["include-group"]
+-                    if not isinstance(include_group, str):
+-                        msg = (
+-                            "Dependency group include-group value is not a string: "
+-                            f"{item!r}"
+-                        )
+-                        errors.error(TypeError(msg))
+-                    else:
+-                        elements.append(
+-                            DependencyGroupInclude(include_group=include_group)
+-                        )
++                    elements.append(DependencyGroupInclude(include_group=include_group))
+             else:
+                 errors.error(TypeError(f"Invalid dependency group item: {item!r}"))
+ 
+-        if errors.errors:
+-            return ()
+-
+         self._parsed_groups[group] = tuple(elements)
+         return self._parsed_groups[group]
+ 

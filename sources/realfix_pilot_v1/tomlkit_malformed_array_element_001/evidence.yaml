@@ -1,0 +1,56 @@
+case_id: tomlkit_malformed_array_element_001
+source_label: python-poetry/tomlkit
+repository_url: https://github.com/python-poetry/tomlkit
+object_format: sha1
+buggy_commit: 11e22aefccd8069a90ae75d20613b9b1068754a1
+fixed_commit: d548e18b71b28d0e9628127bf0b9dfc5a254dca0
+buggy_tree: 3381977d3539ae6ffb147c7670e04c01400e7d65
+fixed_tree: d5af4ceb5e703df0333a601dd299c7792cb2bbca
+fixed_date: "2026-06-23"
+issue_url: null
+pull_request_url: https://github.com/python-poetry/tomlkit/pull/527
+changed_paths:
+  - tomlkit/parser.py
+  - tests/test_parser.py
+source_selectors: [tomlkit]
+tests_root: tests
+regression_test_path: tests/test_parser.py
+regression_test_function: test_array_with_malformed_element_raises
+defect_evidence: >
+  PR #527 ("raise on malformed array element instead of dropping it") gives the repro
+  `a = [{1]` / `a = [1, {2]` (an inline table that never reaches its '=') and explains
+  that _parse_array caught the element's UnexpectedCharError and dropped it, leaving the
+  cursor on ']' and producing a wrong array instead of surfacing the error. The fix lets
+  the parse error propagate. No separate issue was filed; the PR establishes the defect.
+license:
+  spdx: MIT
+  files:
+    - path: LICENSE
+      blob: 44cf2b30e6888272f6b278672d0077cd5948b1e7
+      copyright: "Copyright (c) 2018 Sebastien Eustace"
+  blobs_identical_at_both_commits: true
+test_environment:
+  python: "3.11"
+  pytest: "8.3.5"
+  extra_runtime_dependencies: none
+  network: none
+  plugins: none
+  submodules: none  # targeted test uses tests/test_parser.py, which does not need the toml-test submodule
+contamination_analysis: >
+  Reviewer-visible surfaces expose malformed-array and swallowed-error vocabulary
+  (the buggy source has an "except UnexpectedCharError: pass" and a nearby comment
+  using "discarded exception"; the regression test name contains malformed/array/
+  element/raises). Ground truth paraphrases the defect ("suppressed parse error",
+  "incomplete element handling") and is checked by strict contamination lint.
+mutation_prospect: >
+  Not reached. The candidate could not be imported (see build_batch_status).
+build_batch_status: >
+  FAILED for Batch 1, reason code tests_tree_contains_submodule. At the fixed commit
+  the tests/ tree contains a git submodule gitlink (tests/toml-test, mode 160000,
+  declared in .gitmodules pointing at https://github.com/BurntSushi/toml-test.git).
+  The importer correctly refuses to materialize gitlinks/submodules, and the targeted
+  regression test (tests/test_parser.py) sits at the tests/ root beside the gitlink,
+  so no submodule-free tests_root exists. The candidate cannot be imported without
+  weakening importer policy, which is out of scope. The evidence is retained as a
+  documented failed candidate; the historical fix and reproduction remain valid, but
+  this repository's pipeline cannot vendor it. Not auto-replaced.

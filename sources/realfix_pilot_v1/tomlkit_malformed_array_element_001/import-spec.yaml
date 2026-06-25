@@ -1,0 +1,41 @@
+schema_version: "1"
+pack:
+  version: "1"
+  name: realfix_pilot_v1
+case:
+  id: tomlkit_malformed_array_element_001
+  title: Array parser silently drops an element that fails to parse
+  category: parsing
+  severity: medium
+  stack: [python]
+  description: >
+    While parsing an array element, the parser wrapped the value parse in a
+    try/except that caught the element's parse error and continued, so a malformed
+    element (for example an inline table that never reaches its '=') was dropped and
+    the array parsed into a wrong document instead of surfacing the error.
+source_paths: [tomlkit]
+tests_root: tests
+ground_truth:
+  bugs:
+    - id: bug-1
+      summary: >
+        The array element parse was wrapped in a try/except that caught the value
+        parser's error and fell through, dropping the offending element and leaving
+        the cursor mid-array, so an invalid element was accepted silently. The parse
+        error must be allowed to surface instead of being caught and ignored.
+      files:
+        - path: tomlkit/parser.py
+          line_ranges:
+            - start: 668
+              end: 673
+      concepts: ["suppressed parse error", "incomplete element handling"]
+      must_mention: ["suppressed"]
+      acceptable_fix_keywords: ["propagate parse error", "stop on invalid token"]
+execution:
+  run_tests: true
+  test_command: "pytest tests/test_parser.py -q"
+  timeout_seconds: 120
+  docker_image: realfix-pilot-batch-01:1
+validation:
+  patch_required: true
+  tests_required: true

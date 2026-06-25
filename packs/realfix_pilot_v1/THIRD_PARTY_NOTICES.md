@@ -1,0 +1,45 @@
+# Third-party notices - RealFix Pilot v1 Batch 1
+
+This benchmark pack vendors source and test files from third-party open-source
+projects so that each case is a complete, runnable reverse-review snapshot. The
+redistributed files are reproduced under the upstream licenses in effect at the
+pinned commits below. The full upstream license text for each project is included
+in `licenses/`. This document preserves the notices accompanying the redistributed
+files; it is a redistribution record, not legal advice. No third-party content is
+relicensed by this repository.
+
+Each case vendors the selected source tree at the **buggy** commit (as `after/`)
+and at the **fixed** commit (as `before/`), and the selected test tree at the fixed
+commit (as `tests/`). The exact selectors and changed paths for each case are
+recorded in `sources/realfix_pilot_v1/<case-id>/evidence.yaml`.
+
+## more_itertools_windowed_zero_size_001
+
+- Project: more-itertools
+- Source repository: https://github.com/more-itertools/more-itertools
+- License: MIT
+- License files:
+  - `licenses/more_itertools-MIT.txt` (`LICENSE`)
+- Buggy commit: `e4d2a4a2a97246a73856754b2c4866d7f41d4875`
+- Fixed commit: `71b46b06fb48abcd2f7a26d74c148a650d340386`
+- Included content: the `more_itertools` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `more_itertools/more.py`.
+
+## packaging_dependency_group_error_cache_001
+
+- Project: packaging
+- Source repository: https://github.com/pypa/packaging
+- License: Apache-2.0 OR BSD-2-Clause
+- License files:
+  - `licenses/packaging-LICENSE.txt` (`LICENSE`)
+  - `licenses/packaging-Apache-2.0.txt` (`LICENSE.APACHE`)
+  - `licenses/packaging-BSD-2-Clause.txt` (`LICENSE.BSD`)
+- Buggy commit: `e64c20eb7a854c72710d4c962bc8a95f343230e6`
+- Fixed commit: `349abfad0688f42eb835ed8a10380d6cbf6940e7`
+- Included content: the `src/packaging` source tree (buggy and fixed)
+  and the `tests` tree at the fixed commit. Changed source path:
+  `src/packaging/dependency_groups.py`.
+
+The original per-file copyright and SPDX notices present in the upstream
+files are retained as-is in the vendored `before/`, `after/`, and `tests/` trees.
