@@ -3,6 +3,9 @@
 Real bug fixes from real Python projects, turned into code-review test cases that
 actually run.
 
+This repository is the case pack for [Code Review Arena](https://github.com/hari-kancharla/code-review-arena).
+Writeup: [The reviewer that found every bug and fixed none of them](https://harikancharla.substack.com/p/the-reviewer-that-found-every-bug)
+
 ## What this is
 
 [Code Review Arena](https://github.com/hari-kancharla/code-review-arena) is the tool.
